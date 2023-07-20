@@ -12,7 +12,7 @@ export class Template {
     getFilesFromTemplate() {
         let self = this;
 
-        fetch('../templates/stable.zip')
+        fetch('./templates/stable.zip')
             .then(function (response) {
                 if (response.status === 200 || response.status === 0) {
                     return Promise.resolve(response.blob());

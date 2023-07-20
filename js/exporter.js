@@ -89,7 +89,7 @@ export class Exporter {
 
         for (let location of before_locations) {
             location['category'] = location['categories']?.split(',').map((r) => r.trim()) || [];
-            location['requires'] = location['requirements'];
+            location['requires'] = location['requirements'] || [];
 
             if (location['requires'] == '') {
                 location['requires'] = [];
@@ -124,7 +124,7 @@ export class Exporter {
             let region_name = region['name'];
 
             region['connects_to'] = region['connects_to']?.split(',').map((r) => r.trim()) || [];
-            region['requires'] = region['requirements'];
+            region['requires'] = region['requirements'] || [];
 
             if (region['requires'] == '') {
                 region['requires'] = [];

@@ -131,7 +131,7 @@ const app = createApp({
                 }
 
                 if (region.connects_to) {
-                    for (let connected of region.connects_to.split(/,\s*/)) {
+                    for (let connected of region.connects_to?.split(/,\s*/)) {
                         if (!this.getRegionNames.includes(connected)) {
                             region.validation_error = `Connecting region "${connected}" is misspelled or does not exist.`;
 
