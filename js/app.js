@@ -128,8 +128,8 @@ const app = createApp({
                     }
                 }
 
-                if (region.hasOwnProperty('connects_to') && region.connects_to != null) {
-                    for (let connected of region.connects_to?.split(/,\s*/)) {
+                if (region.hasOwnProperty('connects_to') && typeof(region.connects_to) == 'string' && region.connects_to.length > 0) {
+                    for (let connected of region.connects_to.split(/,\s*/)) {
                         if (!this.getRegionNames.includes(connected)) {
                             region.validation_error = `Connecting region "${connected}" is misspelled or does not exist.`;
 
