@@ -121,8 +121,6 @@ const app = createApp({
                         return false;
                     }
 
-                    console.log(this.getRequiredItemNames);
-
                     if (!this.getRequiredItemNames.includes(required_item)) {
                         region.validation_error = `Required item "${required_item}" is not marked as progression.`;
 
@@ -130,7 +128,7 @@ const app = createApp({
                     }
                 }
 
-                if (region.connects_to) {
+                if (region.connects_to != '') {
                     for (let connected of region.connects_to?.split(/,\s*/)) {
                         if (!this.getRegionNames.includes(connected)) {
                             region.validation_error = `Connecting region "${connected}" is misspelled or does not exist.`;
