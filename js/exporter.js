@@ -134,7 +134,7 @@ export class Exporter {
         for (let region of before_regions) {
             let region_name = region['name'];
 
-            if (region['connects_to']) {
+            if (region.hasOwnProperty('connects_to') && typeof(region.connects_to) == 'string' && region.connects_to.length > 0) {
                 region['connects_to'] = region['connects_to']?.split(',').map((r) => r.trim()) || [];
             }
             else {
