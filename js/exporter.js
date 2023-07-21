@@ -70,7 +70,12 @@ export class Exporter {
         for (let item of before_items) {
             let classification = item['classification'];
 
-            item['category'] = item['categories']?.split(',').map((r) => r.trim()) || [];
+            if (item['categories']) {
+                item['category'] = item['categories']?.split(',').map((r) => r.trim()) || [];
+            }
+            else {
+                item['category'] = [];
+            }
                         
             for (let delete_key of ['categories', 'classification', 'validation_error', 'progression', 'progression_skip_balancing', 'useful', 'filler', 'trap']) {
                 delete item[delete_key];
@@ -88,7 +93,13 @@ export class Exporter {
         let after_locations = [];
 
         for (let location of before_locations) {
-            location['category'] = location['categories']?.split(',').map((r) => r.trim()) || [];
+            if (location['categories']) {
+                location['category'] = location['categories']?.split(',').map((r) => r.trim()) || [];
+            }
+            else {
+                location['category'] = [];
+            }
+            
             location['requires'] = location['requirements'] || [];
 
             if (location['requires'] == '') {
@@ -123,7 +134,13 @@ export class Exporter {
         for (let region of before_regions) {
             let region_name = region['name'];
 
-            region['connects_to'] = region['connects_to']?.split(',').map((r) => r.trim()) || [];
+            if (region['connects_to']) {
+                region['connects_to'] = region['connects_to']?.split(',').map((r) => r.trim()) || [];
+            }
+            else {
+                region['connects_to'] = [];
+            }
+            
             region['requires'] = region['requirements'] || [];
 
             if (region['requires'] == '') {
