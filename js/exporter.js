@@ -77,7 +77,7 @@ export class Exporter {
                 item['category'] = [];
             }
                         
-            for (let delete_key of ['categories', 'classification', 'validation_error', 'progression', 'progression_skip_balancing', 'useful', 'filler', 'trap']) {
+            for (let delete_key of ['id', 'categories', 'classification', 'validation_error', 'progression', 'progression_skip_balancing', 'useful', 'filler', 'trap']) {
                 delete item[delete_key];
             }
 
@@ -118,7 +118,7 @@ export class Exporter {
                 }
             }
 
-            for (let delete_key of ['categories', 'validation_error', 'requirements', 'placement', 'placement_type']) {
+            for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type']) {
                 delete location[delete_key];
             }
 
@@ -147,7 +147,7 @@ export class Exporter {
                 region['requires'] = [];
             }
 
-            for (let delete_key of ['validation_error', 'requirements', 'name']) {
+            for (let delete_key of ['id', 'validation_error', 'requirements', 'name']) {
                 delete region[delete_key];
             }
 
