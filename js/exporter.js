@@ -67,7 +67,8 @@ export class Exporter {
     static prepItems(before_items) {
         let after_items = [];
 
-        for (let item of [...before_items]) {
+        for (let before_item of [...before_items]) {
+            let item = Object.assign({}, before_item);
             let classification = item['classification'];
 
             if (item['categories']) {
@@ -92,7 +93,9 @@ export class Exporter {
     static prepLocations(before_locations) {
         let after_locations = [];
 
-        for (let location of [...before_locations]) {
+        for (let before_location of [...before_locations]) {
+            let location = Object.assign({}, before_location);
+
             if (location['categories']) {
                 location['category'] = location['categories']?.split(',').map((r) => r.trim()) || [];
             }
@@ -131,7 +134,8 @@ export class Exporter {
     static prepRegions(before_regions) {
         let after_regions = {};
 
-        for (let region of [...before_regions]) {
+        for (let before_region of [...before_regions]) {
+            let region = Object.assign({}, before_region);
             let region_name = region['name'];
 
             if (region.hasOwnProperty('connects_to') && typeof(region.connects_to) == 'string' && region.connects_to.length > 0) {
