@@ -123,6 +123,10 @@ export class Importer {
 
             this.vue.items.push(item);
         }
+
+        if (this.vue.items.length == 0) {
+            this.vue.items.push({'id': 1, 'classification': 'filler', 'count': 1});
+        }
     }
 
     fillLocations() {
@@ -148,6 +152,10 @@ export class Importer {
 
             this.vue.locations.push(location);
         }
+
+        if (this.vue.locations.length == 0) {
+            this.vue.locations.push({'id': 1});
+        }
     }
 
     fillRegions() {
@@ -162,6 +170,10 @@ export class Importer {
             region_object.connects_to = region_object.connects_to?.join(', ') || '';
 
             this.vue.regions.push(region_object);
+        }
+
+        if (this.vue.regions.length == 0) {
+            this.vue.regions.push({'id': 1});
         }
     }
 }

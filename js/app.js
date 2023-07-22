@@ -49,23 +49,50 @@ const app = createApp({
             }),
 
             addItem: () => { 
+                let newId = 1;
+
+                if (this.items && this.items[0] && this.items[0].hasOwnProperty('id')) {
+                    newId = this.items.reduce(reduceToMaxId) + 1;
+                }
+                else {
+                    this.items = [];
+                }
+
                 this.items.push({
                     // get the max id in the array, then increment by 1
-                    'id': this.items.reduce(reduceToMaxId) + 1, 
+                    'id': newId, 
                     'classification': 'filler', 
                     'count': 1
                 }); 
             },
             addLocation: () => { 
+                let newId = 1;
+
+                if (this.locations && this.locations[0] && this.locations[0].hasOwnProperty('id')) {
+                    newId = this.locations.reduce(reduceToMaxId) + 1;
+                }
+                else {
+                    this.locations = [];
+                }
+
                 this.locations.push({
                     // get the max id in the array, then increment by 1
-                    'id': this.locations.reduce(reduceToMaxId) + 1
+                    'id': newId
                 }); 
             },
             addRegion: () => { 
+                let newId = 1;
+
+                if (this.regions && this.regions[0] && this.regions[0].hasOwnProperty('id')) {
+                    newId = this.regions.reduce(reduceToMaxId) + 1;
+                }
+                else {
+                    this.regions = [];
+                }
+
                 this.regions.push({
                     // get the max id in the array, then increment by 1
-                    'id': this.regions.reduce(reduceToMaxId) + 1
+                    'id': newId
                 }); 
             },
 

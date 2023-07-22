@@ -1,5 +1,5 @@
 export function reduceToMaxId(accumulator, item) {
-    if (!item.id) return accumulator;
+    if (!item.id) return accumulator || 0;
 
     return accumulator < item.id ? item.id : accumulator;
 }
