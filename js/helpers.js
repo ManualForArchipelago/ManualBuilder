@@ -73,7 +73,7 @@ export function getItemsListedInRequirements(requirements) {
     let items_list = [];
 
     for (let match of matches) {
-        items_list.push(match[1]);
+        items_list.push(match[1].replace(/\:\d+$/, '')); // take the count off the end of the item name
     }
 
     return items_list;
