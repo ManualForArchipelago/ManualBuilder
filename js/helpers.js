@@ -62,8 +62,8 @@ export function translateRequirementsFromBooleans(boolean_string) {
     return boolean_string
         .replace(/\(/g, '( ')
         .replace(/\)/g, ' )')
-        .replace(/or/ig, 'OR')
-        .replace(/and/ig, 'AND');
+        .replace(/\bor\b/ig, 'OR')
+        .replace(/\band\b/ig, 'AND');
 }
 
 export function getItemsListedInRequirements(requirements) {
