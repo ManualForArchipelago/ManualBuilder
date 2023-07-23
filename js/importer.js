@@ -102,6 +102,8 @@ export class Importer {
             'trap',
         ];
 
+        let id = 1;
+
         for (let item of this.items) {
             for (let classification of possible_classifications) {
                 if (item[classification] === true) {
@@ -121,7 +123,10 @@ export class Importer {
                 item.count = 1;
             }
 
+            item.id = id;
+
             this.vue.items.push(item);
+            id++;
         }
 
         if (this.vue.items.length == 0) {
@@ -131,6 +136,8 @@ export class Importer {
 
     fillLocations() {
         this.vue.locations = [];
+
+        let id = 1;
 
         for (let location of this.locations) {
             location.requirements = getRequirementsFromJSON(location.requires);
@@ -150,7 +157,10 @@ export class Importer {
                 location.placement = '';
             }
 
+            location.id = id;
+
             this.vue.locations.push(location);
+            id++;
         }
 
         if (this.vue.locations.length == 0) {
@@ -161,6 +171,8 @@ export class Importer {
     fillRegions() {
         this.vue.regions = [];
 
+        let id = 1;
+
         // region names are keys in this object, hence the "in"
         for (let region in this.regions) {
             let region_object = this.regions[region];
@@ -169,7 +181,10 @@ export class Importer {
             region_object.requirements = getRequirementsFromJSON(region_object.requires);
             region_object.connects_to = region_object.connects_to?.join(', ') || '';
 
+            region_object.id = id;
+
             this.vue.regions.push(region_object);
+            id++;
         }
 
         if (this.vue.regions.length == 0) {

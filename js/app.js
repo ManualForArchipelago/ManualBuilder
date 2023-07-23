@@ -51,7 +51,7 @@ const app = createApp({
             addItem: () => { 
                 let newId = 1;
 
-                if (this.items && this.items[0] && this.items[0].hasOwnProperty('id')) {
+                if (this.items && this.items[0] && this.items[0].id) {
                     newId = this.items.reduce(reduceToMaxId) + 1;
                 }
                 else {
@@ -68,7 +68,7 @@ const app = createApp({
             addLocation: () => { 
                 let newId = 1;
 
-                if (this.locations && this.locations[0] && this.locations[0].hasOwnProperty('id')) {
+                if (this.locations && this.locations[0] && this.locations[0].id) {
                     newId = this.locations.reduce(reduceToMaxId) + 1;
                 }
                 else {
@@ -83,7 +83,7 @@ const app = createApp({
             addRegion: () => { 
                 let newId = 1;
 
-                if (this.regions && this.regions[0] && this.regions[0].hasOwnProperty('id')) {
+                if (this.regions && this.regions[0] && this.regions[0].id) {
                     newId = this.regions.reduce(reduceToMaxId) + 1;
                 }
                 else {
