@@ -23,46 +23,93 @@ export class Importer {
 
         JSZip.loadAsync(file)                                   
             .then(function(zip) {
-                zip.file(`${basename}/data/game.json`).async('string')
-                    .then((content) => {
-                        self.game = JSON.parse(content);
-                    })
-                    .catch((err) => {
-                        self.status = error_text.replace(
-                            '{text}',
-                            'Your game.json file is invalid.'
-                        );
-                    });
+                const file_game = zip.file(`${basename}/data/game.json`);
+                const file_items = zip.file(`${basename}/data/items.json`);
+                const file_locations = zip.file(`${basename}/data/locations.json`);
+                const file_regions = zip.file(`${basename}/data/regions.json`);
 
-                zip.file(`${basename}/data/items.json`).async('string')
-                    .then((content) => {
-                        self.items = JSON.parse(content);
-                    })
-                    .catch((err) => {
-                        self.status = error_text.replace(
-                            '{text}',
-                            'Your items.json file is invalid.'
-                        );
-                    });
+                if (!file_game && !file_items && !file_locations && !file_regions) {
+                    self.status = error_text.replace(
+                        '{text}',
+                        'This zip file is not a functional Manual apworld. Please fix or upload the right file.'
+                    );
 
-                zip.file(`${basename}/data/locations.json`).async('string')
-                    .then((content) => {
-                        self.locations = JSON.parse(content);
-                    })
-                    .catch((err) => {
-                        self.status = error_text.replace(
-                            '{text}',
-                            'Your locations.json file is invalid.'
-                        );
-                    });
+                    return;
+                }
 
-                zip.file(`${basename}/data/regions.json`).async('string')
-                    .then((content) => {
-                        self.regions = JSON.parse(content);
-                    })
-                    .catch((err) => {
-                        console.log('Regions file not provided. Skipping');
-                    });
+                if (file_game) {
+                    file_game.async('string')
+                        .then((content) => {
+                            self.game = JSON.parse(content);
+                        })
+                        .catch((err) => {
+                            self.status = error_text.replace(
+                                '{text}',
+                                'Your game.json file is invalid.'
+                            );
+                        });
+                }
+                else {
+                    self.status = error_text.replace(
+                        '{text}',
+                        'Your game.json file is invalid.'
+                    );
+
+                    return;
+                }
+                
+                if (file_items) {
+                    file_items.async('string')
+                        .then((content) => {
+                            self.items = JSON.parse(content);
+                        })
+                        .catch((err) => {
+                            self.status = error_text.replace(
+                                '{text}',
+                                'Your items.json file is invalid.'
+                            );
+                        });
+                }
+                else {
+                    self.status = error_text.replace(
+                        '{text}',
+                        'Your items.json file is invalid.'
+                    );
+
+                    return;
+                }
+
+                if (file_locations) {
+                    file_locations.async('string')
+                        .then((content) => {
+                            self.locations = JSON.parse(content);
+                        })
+                        .catch((err) => {
+                            self.status = error_text.replace(
+                                '{text}',
+                                'Your locations.json file is invalid.'
+                            );
+                        });
+                }
+                else {
+                    self.status = error_text.replace(
+                        '{text}',
+                        'Your locations.json file is invalid.'
+                    );
+
+                    return;
+                }
+
+                // no else needed for regions because the file is optional
+                if (file_regions) {
+                    file_regions.async('string')
+                        .then((content) => {
+                            self.regions = JSON.parse(content);
+                        })
+                        .catch((err) => {
+                            console.log('Regions file not provided. Skipping');
+                        });
+                }                
             }, function (e) {
                 self.status = `${file.name} failed because: ${e.message}`;
             });
