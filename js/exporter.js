@@ -19,8 +19,8 @@ export class Exporter {
     toZip() {
         let self = this;
 
-        // if they don't have at least 5 items, there's nothing to do yet
-        if (!this.vue || this.vue.items.length < 5) {
+        // if they don't have at least 1 item, there's nothing to do yet
+        if (!this.vue || this.vue.items.length < 1) {
             return;
         }
 
