@@ -19,11 +19,11 @@ export class Exporter {
     toZip() {
         let self = this;
 
+        const hasGameDetails = this.vue.game && this.vue.creator && this.vue.filler;
+        const hasOneNonEmptyItem = this.vue.items.length > 0 && this.vue.items[0].name;
+
         // if they don't have at least 1 item or their game details, there's nothing to do yet
-        if (
-            !this.vue || this.vue.items.length < 1 || !this.vue.items[0].name || 
-            !this.vue.game || !this.vue.creator || !this.vue.filler
-        ) {
+        if (!this.vue || !hasGameDetails || !hasOneNonEmptyItem) {
             return;
         }
 
