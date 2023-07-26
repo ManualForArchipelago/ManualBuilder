@@ -52,6 +52,9 @@ const app = createApp({
 
                 return this.regions.map((i) => i.name || '');
             }),
+            totalItemsByCount: computed(() => {
+                return this.items.map((i) => parseInt(i.count, 10) || 0).reduce((acc, item) => acc + item);
+            }),
 
             addItem: () => { 
                 let newId = 1;
