@@ -11,6 +11,11 @@ const app = createApp({
             loaded: false,
             imported: null,
 
+            initTooltips: () => {
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            },
+
             // game.json
             game: '',
             creator: '',
@@ -191,5 +196,11 @@ const app = createApp({
 
     mounted: function () {
         this.loaded = true;
+
+        this.initTooltips();
+    },
+
+    updated: function () {
+        this.initTooltips();
     }
 }).mount('#app');
