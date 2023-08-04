@@ -52,7 +52,12 @@ export function translateRequirementsFromArray(json_object) {
     for (let t in translated) {
         if (!translated[t]) continue;
 
-        translated[t] = `( ${translated[t].join(' AND ')} )`;
+        if (Array.isArray(translated[t])) {
+            translated[t] = `( ${translated[t].join(' AND ')} )`;
+        }
+        else {
+            translated[t] = `( ${translated[t]} )`;
+        }
     }
 
     return translated.join(' OR ');

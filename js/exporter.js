@@ -38,7 +38,9 @@ export class Exporter {
         this.regions = Exporter.prepRegions(this.vue.regions);
 
         let template = self.vue.apworld_template;
-        let folder_name = `manual_${self.game.game.toLowerCase()}_${self.game.player.toLowerCase()}`;
+        let gameFormatted = self.game.game.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
+        let playerFormatted = self.game.player.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
+        let folder_name = `manual_${gameFormatted}_${playerFormatted}`;
 
         let zip = new JSZip();
         
