@@ -28,8 +28,8 @@ export class Exporter {
         }
 
         this.game = Exporter.prepGame({
-            'game': this.vue.game,
-            'player': this.vue.creator,
+            'game': this.vue.game.replace(/[^A-Za-z0-9]/g, ''),
+            'player': this.vue.creator.replace(/[^A-Za-z0-9]/g, ''),
             'filler_item_name': this.vue.filler
         });
 
