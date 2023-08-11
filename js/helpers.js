@@ -65,8 +65,8 @@ export function translateRequirementsFromArray(json_object) {
 
 export function translateRequirementsFromBooleans(boolean_string) {
     return boolean_string
-        .replace(/\(/g, '( ')
-        .replace(/\)/g, ' )')
+        .replace(/\(\s*/g, '( ')
+        .replace(/\s*\)/g, ' )')
         .replace(/\bor\b/ig, 'OR')
         .replace(/\band\b/ig, 'AND');
 }
@@ -100,7 +100,7 @@ export function encodeJsonWithSpacing(js_object) {
                         .replace(/\{/g, '\n\t{')
                         .replace(/\}\,/g, '\n\t},')
                         .replace(/\}\]/, '\n\t}\n]')
-                        .replace(/\:/g, ': ');
+                        .replace(/\:(?!\d)/g, ': ');
     
     let manual_keywords = [
         /* multiple */
