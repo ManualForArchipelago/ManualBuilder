@@ -23,7 +23,7 @@ const app = createApp({
             starting_items: [],
 
             items: [{'id': 1, 'classification': 'filler', 'count': 1}], // items.json
-            locations: [{'id': 1}], // locations.json
+            locations: [{'id': 1, 'placement_type': 'none'}], // locations.json
             regions: [{'id': 1}], // regions.json
 
             getItemNames: computed(() => {
