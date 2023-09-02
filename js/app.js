@@ -85,7 +85,8 @@ const app = createApp({
 
                 this.locations.push({
                     // get the max id in the array, then increment by 1
-                    'id': newId
+                    'id': newId,
+                    'placement_type': 'none'
                 }); 
             },
             addRegion: () => { 
