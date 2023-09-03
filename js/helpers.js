@@ -100,7 +100,7 @@ export function encodeJsonWithSpacing(js_object) {
                         .replace(/\{/g, '\n\t{')
                         .replace(/\}\,/g, '\n\t},')
                         .replace(/\}\]/, '\n\t}\n]')
-                        .replace(/\:(?!\d)/g, ': ');
+                        .replace(/\:\s?(?!\d)/g, ': ');
     
     let manual_keywords = [
         /* multiple */
