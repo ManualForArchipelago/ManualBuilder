@@ -1,5 +1,6 @@
 export class Template {
     fileContents = {}; // "filename": "file contents"
+    templateName = 'stable';
 
     static loadForLater() {
         let self = new Template();
@@ -12,7 +13,7 @@ export class Template {
     getFilesFromTemplate() {
         let self = this;
 
-        fetch('./templates/unstable.zip')
+        fetch(`./templates/${this.templateName}.zip`)
             .then(function (response) {
                 if (response.status === 200 || response.status === 0) {
                     return Promise.resolve(response.blob());
