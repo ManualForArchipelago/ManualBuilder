@@ -134,7 +134,14 @@ export class Importer {
 
     fillGame() {
         this.vue.game = this.game.game;
-        this.vue.creator = this.game.player;
+
+        if ('creator' in this.game) {
+            this.vue.creator = this.game.creator;
+        }
+        else {
+            this.vue.creator = this.game.player;
+        }
+        
         this.vue.filler = this.game.filler_item_name;
     }
 

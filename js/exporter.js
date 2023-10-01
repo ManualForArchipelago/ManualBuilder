@@ -29,7 +29,7 @@ export class Exporter {
 
         this.game = Exporter.prepGame({
             'game': this.vue.game.replace(/[^A-Za-z0-9]/g, ''),
-            'player': this.vue.creator.replace(/[^A-Za-z0-9]/g, ''),
+            'creator': this.vue.creator.replace(/[^A-Za-z0-9]/g, ''),
             'filler_item_name': this.vue.filler
         });
 
@@ -39,7 +39,7 @@ export class Exporter {
 
         let template = self.vue.apworld_template;
         let gameFormatted = self.game.game.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
-        let playerFormatted = self.game.player.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
+        let playerFormatted = self.game.creator.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
         let folder_name = `manual_${gameFormatted}_${playerFormatted}`;
 
         let zip = new JSZip();
