@@ -61,16 +61,23 @@
                         </div>
                         <br /><br />
 
-                        <div class="input-group">
-                            <input type="file" name="file" v-on:change="getImporter($event)" />
-                            <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="If you have a functional Manual apworld file that you created before, you can choose that here. Then click the Import button below to pull the items/locations/etc. from that apworld into this tool."></i>
-                            <div class="import-details" v-if="imported">
-                                <div v-if="imported.status" v-html="imported.status"></div>
+                        <template v-if="game == '' && creator == '' && filler">
+                            <div class="input-group">
+                                <input type="file" name="file" v-on:change="getImporter($event)" />
+                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="If you have a functional Manual apworld file that you created before, you can choose that here. Then click the Import button below to pull the items/locations/etc. from that apworld into this tool."></i>
                             </div>
-                        </div>
-                        <div class="input-group">
-                            <button class="btn btn-warning" v-on:click="imported && imported.fillAll()">Import from apworld</button>
-                        </div><br /><br />
+                            <div class="input-group">
+                                <button class="btn btn-warning" v-on:click="imported && imported.fillAll()">Import from apworld</button>
+                            </div>
+                        </template>
+                        <template v-if="imported">
+                            <div class="input-group">
+                                <div class="import-details">
+                                    <div v-if="imported.status" v-html="imported.status"></div>
+                                </div>
+                            </div>
+                        </template>
+                        <br /><br />
                         <div class="input-group">
                             <button class="btn btn-success" v-on:click="getExporter().toZip()">Export to apworld</button>
                         </div>
@@ -287,5 +294,10 @@
         <script src="vendor/js/filesaver-1.3.8.js"></script>
 
         <script type="module" src="js/app.js"></script>
+        <script>
+            window.addEventListener("beforeunload", (event) => {
+                event.returnValue = true;
+            });
+        </script>
     </body>
 </html>

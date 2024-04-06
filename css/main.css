@@ -77,6 +77,10 @@ input.name, select.region {
     width: 60%;
 }
 
+div.add-more {
+    margin-bottom: 30px;
+}
+
 div.add-more button.btn-info {
     margin-left: 20px;
 }
@@ -133,4 +137,10 @@ div.validation_text {
     color: #a32b2b;
     font-weight: bolder;
     letter-spacing: 2px;
+}
+
+/* Import styling */
+
+div.import-details strong {
+    font-size: 18px;
 }

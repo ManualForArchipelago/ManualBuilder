@@ -1,4 +1,4 @@
-import { createApp, computed, reactive } from 'vue';
+import { createApp, computed, reactive, nextTick } from 'vue';
 import { Importer } from './importer.js';
 import { Exporter } from './exporter.js';
 import { Template } from './template.js';
@@ -72,6 +72,8 @@ const app = createApp({
                     'classification': 'filler', 
                     'count': 1
                 }); 
+
+                this.scrollToBottom();
             },
             addLocation: () => { 
                 let newId = 1;
@@ -88,6 +90,8 @@ const app = createApp({
                     'id': newId,
                     'placement_type': 'none'
                 }); 
+
+                this.scrollToBottom();
             },
             addRegion: () => { 
                 let newId = 1;
@@ -103,6 +107,8 @@ const app = createApp({
                     // get the max id in the array, then increment by 1
                     'id': newId
                 }); 
+
+                this.scrollToBottom();
             },
 
             removeItem: (index) => { this.items.splice(index, 1); },
@@ -190,6 +196,12 @@ const app = createApp({
             },
             getYaml: () => {
                 return Yaml.fromApp(this);
+            },
+
+            scrollToBottom: () => {
+                nextTick(function () {
+                    document.documentElement.scrollTop = window.innerHeight;
+                });
             },
 
             Importer,

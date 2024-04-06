@@ -64,11 +64,11 @@ export function translateRequirementsFromArray(json_object) {
 }
 
 export function translateRequirementsFromBooleans(boolean_string) {
-    return boolean_string
-        .replace(/\(\s*/g, '( ')
-        .replace(/\s*\)/g, ' )')
-        .replace(/\bor\b/ig, 'OR')
-        .replace(/\band\b/ig, 'AND');
+    return boolean_string;
+        // .replace(/\(\s*/g, '( ')
+        // .replace(/\s*\)/g, ' )')
+        // .replace(/\bor\b/ig, 'OR')
+        // .replace(/\band\b/ig, 'AND');
 }
 
 export function getItemsListedInRequirements(requirements) {

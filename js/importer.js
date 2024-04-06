@@ -113,8 +113,8 @@ export class Importer {
             }, function (e) {
                 self.status = `${file.name} failed because: ${e.message}`;
             });
-                
-        self.status = `Loaded: ${basename}`;
+        
+        self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename}</span>`;
 
         return self;
     }
@@ -130,6 +130,8 @@ export class Importer {
         this.fillItems();
         this.fillLocations();
         this.fillRegions();
+
+        this.status = `<strong>Loaded!</strong>`;
     }
 
     fillGame() {
