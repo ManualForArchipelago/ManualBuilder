@@ -73,7 +73,7 @@ const app = createApp({
                     'count': 1
                 }); 
 
-                this.scrollToBottom();
+                // this.scrollToBottom();
             },
             addLocation: () => { 
                 let newId = 1;
@@ -91,7 +91,7 @@ const app = createApp({
                     'placement_type': 'none'
                 }); 
 
-                this.scrollToBottom();
+                // this.scrollToBottom();
             },
             addRegion: () => { 
                 let newId = 1;
@@ -108,7 +108,7 @@ const app = createApp({
                     'id': newId
                 }); 
 
-                this.scrollToBottom();
+                // this.scrollToBottom();
             },
 
             removeItem: (index) => { this.items.splice(index, 1); },
