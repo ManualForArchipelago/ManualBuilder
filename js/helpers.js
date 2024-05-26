@@ -96,10 +96,7 @@ export async function copyJsonCollection(collection) {
 }
 
 export function encodeJsonWithSpacing(js_object) {
-    let json_content = JSON.stringify(js_object)
-                        .replace(/\{/g, '\n\t{')
-                        .replace(/\}\,/g, '\n\t},')
-                        .replace(/\}\]/, '\n\t}\n]')
+    let json_content = JSON.stringify(js_object, null, 2)
                         .replace(/\:\s?(?!\d)/g, ': ')
                         .replace(/\:\s*ALL/, ":ALL").replace(/\:\s*HALF/, ":HALF");
     
