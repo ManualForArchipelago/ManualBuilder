@@ -145,6 +145,7 @@ export class Importer {
         }
         
         this.vue.filler = this.game.filler_item_name;
+        this.vue.starting_items = this.game.starting_items || [];
     }
 
     fillItems() {

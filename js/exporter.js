@@ -28,9 +28,11 @@ export class Exporter {
         }
 
         this.game = Exporter.prepGame({
+            "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.game.schema.json",
             'game': this.vue.game.replace(/[^A-Za-z0-9]/g, ''),
             'creator': this.vue.creator.replace(/[^A-Za-z0-9]/g, ''),
-            'filler_item_name': this.vue.filler
+            'filler_item_name': this.vue.filler,
+            'starting_items': this.vue.starting_items,
         });
 
         this.items = Exporter.prepItems(this.vue.items);
