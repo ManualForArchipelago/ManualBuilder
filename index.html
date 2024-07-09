@@ -7,19 +7,36 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link href="css/main.css" rel="stylesheet">
 
-        <script type="importmap">
-            {
-                "imports": {
-                    "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
-                    "octokit": "https://cdn.skypack.dev/@octokit/core@v4"
-                }
-            }
-        </script>        
         <script src="vendor/js/bootstrap-5.3.1.bundle.min.js"></script>
     </head>
 
     <body>
         <div id="app">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        Manual Builder
+                        <span>Make a Manual apworld for use with Archipelago!</span>
+                    </a>
+                </div>
+            </nav>
+             
+            <ul id="primary_nav" class="nav flex-column">
+                <li class="nav-item template">
+                    <div class="nav-arrow">&gt;</div>
+                    <a class="nav-link" aria-current="page" href="javascript:void(0);"></a>
+                </li>
+            </nav>
+
+            <div id="container">
+                <div class="form template">
+                    <form onsubmit="return false;">
+                    
+                    </form>
+                </div>
+            </div>
+
+            <!--
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
@@ -153,7 +170,6 @@
 
                             <div class="add-more">
                                 <button class="btn btn-secondary" v-on:click="addItem()"><i class="bi bi-plus-lg"></i> Add Item</button>
-                                <!-- <button class="btn btn-info" v-on:click=""><i class="bi bi-clipboard"></i> Copy all as JSON</button> -->
                             </div>
                         </div>
     
@@ -230,7 +246,6 @@
 
                             <div class="add-more">
                                 <button class="btn btn-secondary" v-on:click="addLocation()"><i class="bi bi-plus-lg"></i> Add Location</button>
-                                <!-- <button class="btn btn-info" v-on:click=""><i class="bi bi-clipboard"></i> Copy all as JSON</button> -->
                             </div>
                         </div>
     
@@ -282,19 +297,33 @@
 
                             <div class="add-more">
                                 <button class="btn btn-secondary" v-on:click="addRegion()"><i class="bi bi-plus-lg"></i> Add Region</button>
-                                <!-- <button class="btn btn-info" v-on:click=""><i class="bi bi-clipboard"></i> Copy all as JSON</button> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>           
+            -->
         </div>
+    
 
+        <script src="vendor/js/jquery-3.7.1.min.js"></script>
         <script src="vendor/js/jszip.min.js"></script>
         <script src="vendor/js/filesaver-1.3.8.js"></script>
 
-        <script type="module" src="js/app.js"></script>
+        <script src="js/singleton.js"></script>
+
+        <script src="js/layout.js"></script>
+        <script src="js/registry.js"></script>
+        <script src="js/schema.js"></script>
+        
+        <script src="js/builder.js"></script>
+
         <script>
+            registry = Registry.getInstance();
+
+            builder = Builder.getInstance(new Layout, new Schema);
+            builder.init();
+
             window.addEventListener("beforeunload", (event) => {
                 event.returnValue = true;
             });

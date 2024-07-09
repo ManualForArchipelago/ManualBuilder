@@ -1,3 +1,4 @@
+/*
 export class Template {
     fileContents = {}; // "filename": "file contents"
     templateName = 'stable';
@@ -35,3 +36,4 @@ export class Template {
             });  
     }
 }
+*/

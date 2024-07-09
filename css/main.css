@@ -1,14 +1,10 @@
 #container {
     padding: 30px;
 }
-#form_game {
-    float: left;
-    width: 15%;
-    margin-right: 50px;
-}
 
 nav {
     background-color: rgb(12, 72, 140);
+    border-bottom: 3px #888 solid;
 }
 
 nav a.navbar-brand {
@@ -23,124 +19,30 @@ nav a.navbar-brand span {
     font-size: 16px;
 }
 
-div.form-card {
-    padding: 20px;
+ul#primary_nav {
+    width: 250px;
+    height: 100%;
+    background-color: #555;
 }
 
-div.input-group {
-    padding: 5px;
-}
-
-label.form-label {
-    margin-right: 10px;
-}
-
-div.card label.form-label {
-    display: block;
-    width: 100%;
-    margin-right: 0;
-}
-
-#forms-tabbed {
-    float: left;
-    width: 80%;
-}
-
-#forms-tabbed div.tab-content {
-    margin-top: 20px;
-}
-
-div.tab-content div.remove-this {
+ul#primary_nav li.nav-item div.nav-arrow {
     float: right;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-right: 15px;
+    color: #ddd;
 }
 
-input[type=text], textarea {
-    width: 80%;
-}
-
-input[type=checkbox] {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-}
-
-input[type=file] {
-    width: 92%;
-    margin-bottom: 10px;
-}
-
-input.count {
-    width: 10%;
-}
-
-input.name, select.region {
-    width: 60%;
-}
-
-div.add-more {
-    margin-bottom: 30px;
-}
-
-div.add-more button.btn-info {
-    margin-left: 20px;
-}
-
-div.col-center {
-    text-align: center;
-}
-
-/* Background highlights for items, locations, regions */
-
-#form_items > div, #form_locations > div, #form_regions > div {
-    padding: 10px 10px 0 10px;
-}
-
-#form_items > div > hr {
-    margin: 5px;
-    padding: 0;
-}
-
-/* Highlights for Items */
-
-div.progression {
-    background-color: #0a2f18;
-}
-
-div.progression_skip_balancing {
-    background-color: #50400f;
-}
-
-div.useful {
-    background-color: #12345b;
-}
-
-div.trap {
-    background-color: #5b1912;
-}
-
-/* Highlights for Locations and Regions */
-
-div.victory, div.starting {
-    background-color: #0a2f18;
-}
-
-/* Highlights for errors and what not */
-
-div.validation_error {
-    background-color: #100d12;
-}
-
-div.validation_text {
-    width: 100%;
-    text-align: center;
-    padding-bottom: 10px;
-    color: #a32b2b;
+ul#primary_nav li.nav-item a {
+    display: block;
+    padding: 20px 30px;
+    border: 3px #888 solid;
+    border-top: 0px;
+    color: #ddd;
+    text-transform: uppercase;
     font-weight: bolder;
-    letter-spacing: 2px;
 }
 
-/* Import styling */
-
-div.import-details strong {
-    font-size: 18px;
+ul#primary_nav li.nav-item > a.active {
+    background-color: #333;
 }

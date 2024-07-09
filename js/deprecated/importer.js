@@ -1,3 +1,4 @@
+/*
 import { getRequirementsFromJSON } from './helpers.js';
 
 export class Importer {
@@ -249,3 +250,4 @@ export class Importer {
         }
     }
 }
+*/

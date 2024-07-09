@@ -1,3 +1,4 @@
+/*
 import { encodeJsonWithSpacing, fixRegionsSpacing } from "./helpers.js";
 
 export class Exporter {
@@ -168,3 +169,4 @@ export class Exporter {
         return after_regions;
     }
 }
+*/

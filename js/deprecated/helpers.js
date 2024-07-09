@@ -1,3 +1,4 @@
+/*
 export function reduceToMaxId(accumulator, item) {
     if (!item.id) return accumulator || 0;
 
@@ -127,3 +128,4 @@ export function fixRegionsSpacing(json_content) {
             .replace(/\}\,\"/g, '},\n\t"')
             .replace(/\}\}/g, '\n}\n}').trim();
 }
+*/

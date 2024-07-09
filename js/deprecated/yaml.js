@@ -1,3 +1,4 @@
+/*
 export class Yaml {
     vue = null;
 
@@ -26,3 +27,4 @@ export class Yaml {
         saveAs(file, `Manual_${game}_${creator}.yaml`);
     }
 }
+*/

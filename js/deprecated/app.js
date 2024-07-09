@@ -1,3 +1,4 @@
+/*
 import { createApp, computed, reactive, nextTick } from 'vue';
 import { Importer } from './importer.js';
 import { Exporter } from './exporter.js';
@@ -222,3 +223,4 @@ const app = createApp({
         this.initTooltips();
     }
 }).mount('#app');
+*/
