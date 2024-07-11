@@ -2,9 +2,19 @@ class Schema {
     loadCatalogIntoRegistry() {
         return new Promise((resolve, reject) => {
             this.loadCatalog().then((data) => {
+                let schemaFileRequests = [];
+
                 registry.schema_catalog = data.schemas.map((x) => {
                     x.short_name = x.name.replace(/^Manual /, '').replace(/\.json$/, ''); // give each of them a meaningful short name to reuse
-                    this.loadSchemaIntoRegistry(x.short_name); // load each of the schemas individually by short name
+
+                    schemaFileRequests.push(
+                        this.loadSchemaIntoRegistry(x.short_name).then(() => {    
+                            x.has_items = registry.schemas[x.short_name].hasOwnProperty('items');
+                        
+                            // some of the JSON docs act as an object collection without being an array, so allow them to have counts as well
+                            if (['regions', 'categories'].includes(x.short_name)) x.has_items = true;
+                        })
+                    ); // load each of the schemas individually by short name
 
                     return x;
                 });
@@ -25,7 +35,9 @@ class Schema {
                 ];
 
                 // finally, let things load
-                resolve();
+                Promise.all(schemaFileRequests).then(() => {
+                    resolve();
+                });
             });
         });
     }
@@ -35,7 +47,7 @@ class Schema {
     }
 
     loadSchemaIntoRegistry(schema_short_name) {
-        this.loadSchema(schema_short_name).then((data) => {
+        return this.loadSchema(schema_short_name).then((data) => {
             registry.schemas[schema_short_name] = data;
         });
     }
