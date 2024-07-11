@@ -115,7 +115,7 @@ ul#primary_nav li.nav-item > a.active {
     width: 300px;
 }
 
-#container div.form form div.form-field input[type='checkbox'] {
+#container div.form form div.form-field input[type='checkbox'], #container div.form form div.form-field input[type='radio'] {
     width: 50px;
     transform: scale(1.5);
     vertical-align: baseline;

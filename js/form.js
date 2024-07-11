@@ -10,10 +10,10 @@ class Form {
     }
 
     loadSchemaFields() {
-        const hasOnlyItems = this.schema.hasOwnProperty('items') && !this.schema.hasOwnProperty('properties') && !this.schema.hasOwnProperty('patternProperties');
-        const hasPatternProperties = this.schema.hasOwnProperty('patternProperties') && !this.schema.hasOwnProperty('items') && !this.schema.hasOwnProperty('properties');
+        const hasItems = this.schema.hasOwnProperty('items') && !this.schema.hasOwnProperty('patternProperties');
+        const hasPatternProperties = this.schema.hasOwnProperty('patternProperties') && !this.schema.hasOwnProperty('items');
 
-        if (hasOnlyItems) {
+        if (hasItems) {
             let items_ref = this.schema.items['$ref'].split('/');
             let item_definition_key = items_ref[2];
             let items_spec = this.schema.definitions[item_definition_key]['properties']
@@ -50,12 +50,13 @@ class Form {
 
     getSchemaField(property, properties_data, definitions_data) {
         // skip any hidden or "comment" fields
-        if (property.substring(1) == '_' || property.includes("comment")) return;
+        if (property.substring(1) == '_' || property.includes("comment") || property.includes("$schema")) return;
             
         // skip any deprecated fields
         if (properties_data.hasOwnProperty('deprecated') && properties_data['deprecated']) return;
 
         const field_default = properties_data.hasOwnProperty('default') ? properties_data['default'] : null;
+        let field_name = property;
         let field_type = 'text';
         let subitems = [];
         
@@ -89,8 +90,18 @@ class Form {
                 break;
         }
 
+        const custom_field_type = this._checkForCustomFieldType(property);
+        if (custom_field_type) field_type = custom_field_type;
+
+        const custom_field_label = this._checkForCustomFieldLabel(property);
+        if (custom_field_label) property = custom_field_label;
+        
+        const custom_field_name = this._checkForCustomFieldName(property);
+        if (custom_field_name) field_name = custom_field_name;
+
         return {
             'name': property,
+            'field_name': field_name,
             'description': properties_data['description'],
             'type': field_type,
             'schema_type': properties_data['type'], // in case this is ever helpful to have
@@ -104,7 +115,7 @@ class Form {
         if (!multiple) multiple = false;
 
         const display_name = field_details['name'].replace(/_/g, ' ');
-        const new_field_label = $(`<label for="${field_details['name']}">${display_name}:</label>`);
+        const new_field_label = $(`<label for="${field_details['name']}">${display_name}</label>`);
         let new_field = $('<input type="text" />');
 
         if (field_details['type'] == 'subform') {
@@ -129,21 +140,68 @@ class Form {
                 new_field = $('<input type="checkbox" />');
                 new_field_label.addClass('inline');
             }
+
+            if (field_details['type'] == 'radio') {
+                new_field = $('<input type="radio" />');
+                new_field_label.addClass('inline');
+            }
             
-            if (field_details['type'] != 'subform') new_field.attr('name', field_details['name'] + (multiple ? '[]' : ''));
+            if (field_details['type'] != 'subform') {
+                new_field.attr('name', field_details['field_name'] + (multiple ? '[]' : ''));
+            }
             if (field_details['default']) new_field.val(field_details['default']);
     
-            if (field_details['subitems']) console.log('subitems: ', field_details['subitems']);
-    
             dom_form.append(
-                $('<div class="form-field" />')
-                    .append(new_field_label)
-                    .append(new_field)
+                (
+                    field_details['type'] == 'radio' || field_details['type'] == 'checkbox'
+                    ? 
+                        $('<div class="form-field" />')
+                            .append(new_field).append(' ')
+                            .append(new_field_label)
+                    : 
+                        $('<div class="form-field" />')
+                            .append(new_field_label)
+                            .append(new_field)
+                )
             );
         }
     }
 
     getData() {
 
+    }
+
+    _checkForCustomFieldType(property_name) {
+        if (this.short_name == 'items') {
+            const item_classifications = ['progression', 'progression_skip_balancing', 'useful', 'filler', 'trap'];
+
+            if (item_classifications.indexOf(property_name) >= 0) {
+                return 'radio';
+            }
+        }
+
+        if (this.short_name == 'meta' && property_name == 'docs') return 'textarea';
+
+        return null;
+    }
+
+    _checkForCustomFieldLabel(property_name) {
+        if (this.short_name == 'items' && property_name == 'value') {
+            return 'Item Value';
+        }
+
+        return null;
+    }
+
+    _checkForCustomFieldName(property_name) {
+        if (this.short_name == 'items') {
+            const item_classifications = ['progression', 'progression_skip_balancing', 'useful', 'filler', 'trap'];
+
+            if (item_classifications.indexOf(property_name) >= 0) {
+                return 'classification';
+            }
+        }
+
+        return null;
     }
 }
