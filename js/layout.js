@@ -2,6 +2,8 @@ class Layout {
     load() {
         this.loadForms();
         this.loadPrimaryNavigation();
+
+        this.loadTooltips();
     }
 
     loadPrimaryNavigation() {
@@ -58,5 +60,10 @@ class Layout {
                 return;
             }
         });
+    }
+
+    loadTooltips() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     }
 }

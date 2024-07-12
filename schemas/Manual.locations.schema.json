@@ -26,10 +26,6 @@
                     "description": "The unique name of the location.",
                     "type": "string"
                 },
-                "region": {
-                    "description": "(Optional) The name of the Region this location is part of.",
-                    "type": "string"
-                },
                 "category": {
                     "description": "(Optional) An array of the Category(ies) this location is a part of.",
                     "type": "array",
@@ -46,14 +42,9 @@
                     },
                     "uniqueItems": true
                 },
-                "place_item_category": {
-                    "description": "(Optional) Specify the category of item that will be placed at this location. (Ignore Logic)",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Place_item_category"
-                    },
-                    "minItems": 0,
-                    "uniqueItems": true
+                "region": {
+                    "description": "(Optional) The name of the Region this location is part of.",
+                    "type": "string"
                 },
                 "place_item": {
                     "description": "(Optional) Specify the list of item that can be placed at this location (will only randomly choose 1).",
@@ -64,8 +55,17 @@
                     "minItems": 0,
                     "uniqueItems": true
                 },
-                "dont_place_item_category": {
-                    "description": "(Optional) Specify the categories of items that will never be placed at this location.",
+                "dont_place_item": {
+                    "description": "(Optional) Specify the list of items that cannot be placed at this location.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Place_item"
+                    },
+                    "minItems": 0,
+                    "uniqueItems": true
+                },
+                "place_item_category": {
+                    "description": "(Optional) Specify the category of item that will be placed at this location. (Ignore Logic)",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Place_item_category"
@@ -73,11 +73,11 @@
                     "minItems": 0,
                     "uniqueItems": true
                 },
-                "dont_place_item": {
-                    "description": "(Optional) Specify the list of items that cannot be placed at this location.",
+                "dont_place_item_category": {
+                    "description": "(Optional) Specify the categories of items that will never be placed at this location.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Place_item"
+                        "$ref": "#/definitions/Place_item_category"
                     },
                     "minItems": 0,
                     "uniqueItems": true

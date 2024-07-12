@@ -64,7 +64,7 @@ class Form {
         //   or the value is an array of items but the items aren't object definitions,
         //     then we'll expect the user to enter comma-separated in a text box
         if (properties_data['type'] == 'array' && 
-            (!properties_data.hasOwnProperty('items') || Object.keys(definitions_data).length == 0)
+            (!properties_data.hasOwnProperty('items') || !properties_data['items'].hasOwnProperty('$ref') || Object.keys(definitions_data).length == 0)
         ) {
             properties_data['type'] = 'text';
         }
@@ -114,8 +114,11 @@ class Form {
         if (!field_details['name']) return;
         if (!multiple) multiple = false;
 
+        if (field_details.hasOwnProperty('description')) field_details['description'] = field_details['description'].replaceAll('"', '&quot;').replaceAll("\n", "");
+
         const display_name = field_details['name'].replace(/_/g, ' ');
-        const new_field_label = $(`<label for="${field_details['name']}">${display_name}</label>`);
+        const tooltip = `<i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="${field_details['description']}"></i>`
+        const new_field_label = $(`<label for="${field_details['name']}">${display_name} ${tooltip}</label>`);
         let new_field = $('<input type="text" />');
 
         if (field_details['type'] == 'subform') {
@@ -151,15 +154,17 @@ class Form {
             }
             if (field_details['default']) new_field.val(field_details['default']);
     
+            const form_field_classes = `form-field form-field-${field_details['name']} form-field-name-${field_details['field_name']} form-field-type-${field_details['type']}`;
+
             dom_form.append(
                 (
                     field_details['type'] == 'radio' || field_details['type'] == 'checkbox'
                     ? 
-                        $('<div class="form-field" />')
+                        $(`<div class="${form_field_classes}" />`)
                             .append(new_field).append(' ')
                             .append(new_field_label)
                     : 
-                        $('<div class="form-field" />')
+                        $(`<div class="${form_field_classes}" />`)
                             .append(new_field_label)
                             .append(new_field)
                 )

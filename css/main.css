@@ -100,6 +100,22 @@ ul#primary_nav li.nav-item > a.active {
     margin-bottom: 20px;
 }
 
+#container div.form form div.form-field.form-field-type-checkbox, #container div.form form div.form-field.form-field-type-radio {
+    margin-top: 30px;
+}
+
+#container div.form #form_items div.form-field.form-field-type-checkbox, #container div.form #form_items div.form-field.form-field-type-radio {
+    margin-top: 0px;
+}
+
+#container div.form form div.form-field.form-field-name-classification {
+    width: 240px;
+}
+
+#container div.form form div.form-field.form-field-name-classification.form-field-progression_skip_balancing {
+    width: 350px;
+}
+
 #container div.form form div.form-field label {
     display: block;
     font-weight: bold;

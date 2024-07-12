@@ -29,7 +29,7 @@
                             "description": "Array of other regions the player can go from this region.",
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Connects_to"
+                                "type": "string"
                             },
                             "minItems": 0,
                             "uniqueItems": true
@@ -58,9 +58,6 @@
                     }
                 }
             }
-        },
-        "Connects_to": {
-            "type": "string"
         },
         "comment": {
             "description": "(Optional) Does nothing, Its mainly here for Dev notes for future devs to understand your logic",
