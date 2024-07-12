@@ -36,7 +36,8 @@
                         },
                         "starting": {
                             "description": "(Optional) Is this region accessible from the start? Defaults to false if not included.",
-                            "type":"boolean"
+                            "type":"boolean",
+                            "default": false
                         },
                         "_comment": {"$ref": "#/definitions/comment"}
                     }

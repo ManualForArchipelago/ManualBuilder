@@ -28,7 +28,7 @@
                         "hidden": {
                             "description": "(Optional) Should this category be Hidden in the client?",
                             "type": "boolean",
-                            "default": true
+                            "default": false
                         },
                         "_comment": {"$ref": "#/definitions/comment"}
                     }
