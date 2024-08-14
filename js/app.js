@@ -159,6 +159,8 @@ const app = createApp({
                 let required_items = getItemsListedInRequirements(region.requirements);
 
                 for (let required_item of required_items) {
+                    if (required_item.substring(0, 1) == '@') continue; // no category validation for now
+                    
                     if (!this.getItemNames.includes(required_item)) {
                         region.validation_error = `Required item "${required_item}" is misspelled or does not exist.`;
 
