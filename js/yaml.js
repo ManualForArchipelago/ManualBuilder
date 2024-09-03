@@ -15,8 +15,11 @@ export class Yaml {
         let creator = this.vue.creator.replace(/[^A-Za-z0-9]/g, '');
 
         const yamlContents = 
-            `game: Manual_${game}_${creator}\n` +
-            `name: ${creator}\n\n` +
+            `name: ${creator}\n` +
+            "description: Default template created by the Manual Builder tool\n\n" +
+
+            `game: Manual_${game}_${creator}\n\n` +
+            
             `Manual_${game}_${creator}:\n` +
             '    progression_balancing: 50\n' +
             '    accessibility: items\n';
