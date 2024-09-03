@@ -15,11 +15,11 @@ export class Yaml {
         let creator = this.vue.creator.replace(/[^A-Za-z0-9]/g, '');
 
         const yamlContents = 
+            `game: Manual_${game}_${creator}\n` +
+            `name: ${creator}\n\n` +
             `Manual_${game}_${creator}:\n` +
             '    progression_balancing: 50\n' +
-            '    accessibility: items\n\n' +
-            `game: Manual_${game}_${creator}\n` +
-            `name: ${creator}`;
+            '    accessibility: items\n';
 
         const file = new Blob([yamlContents], { type: 'text/yaml' });
 
