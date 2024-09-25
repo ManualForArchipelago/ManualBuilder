@@ -55,10 +55,15 @@ export class Exporter {
         zip.folder(folder_name).file('data/locations.json', encodeJsonWithSpacing(this.locations));
         zip.folder(folder_name).file('data/regions.json', fixRegionsSpacing(encodeJsonWithSpacing(this.regions)));
 
-        zip.generateAsync({type:"blob"})
-            .then(function(content) {
-                saveAs(content, `${folder_name}.apworld`);
-            });
+        zip.generateAsync({
+            type:"blob",
+            compression: "DEFLATE",
+            compressionOptions: {
+                level: 9 // 1 is best speed, 9 is best compression
+            }
+        }).then(function(content) {
+            saveAs(content, `${folder_name}.apworld`);
+        });
     }
 
     static prepGame(before_game) {
