@@ -1,4 +1,4 @@
-import { encodeJsonWithSpacing, fixRegionsSpacing } from "./helpers.js";
+import { encodeJsonWithSpacing } from "./helpers.js";
 
 export class Exporter {
     vue = null;
@@ -55,7 +55,7 @@ export class Exporter {
         zip.folder(folder_name).file('data/game.json', encodeJsonWithSpacing(this.game));
         zip.folder(folder_name).file('data/items.json', encodeJsonWithSpacing(this.items));
         zip.folder(folder_name).file('data/locations.json', encodeJsonWithSpacing(this.locations));
-        zip.folder(folder_name).file('data/regions.json', fixRegionsSpacing(encodeJsonWithSpacing(this.regions)));
+        zip.folder(folder_name).file('data/regions.json', encodeJsonWithSpacing(this.regions));
         zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
 
 
