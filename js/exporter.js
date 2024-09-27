@@ -7,6 +7,7 @@ export class Exporter {
     items = [];
     locations = [];
     regions = [];
+    categories = {};
     status = '';
 
     static fromApp(vue) {
@@ -38,6 +39,7 @@ export class Exporter {
         this.items = Exporter.prepItems(this.vue.items);
         this.locations = Exporter.prepLocations(this.vue.locations);
         this.regions = Exporter.prepRegions(this.vue.regions);
+        this.categories = this.vue.categories;
 
         let template = self.vue.apworld_template;
         let gameFormatted = self.game.game.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
@@ -54,6 +56,8 @@ export class Exporter {
         zip.folder(folder_name).file('data/items.json', encodeJsonWithSpacing(this.items));
         zip.folder(folder_name).file('data/locations.json', encodeJsonWithSpacing(this.locations));
         zip.folder(folder_name).file('data/regions.json', fixRegionsSpacing(encodeJsonWithSpacing(this.regions)));
+        zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
+
 
         zip.generateAsync({
             type:"blob",
