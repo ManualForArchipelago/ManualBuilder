@@ -7,6 +7,7 @@ export class Importer {
     items = [];
     locations = [];
     regions = [];
+    categories = {};
     status = '';
 
     static fromZip(file, app) {
@@ -27,6 +28,7 @@ export class Importer {
                 const file_items = zip.file(`${basename}/data/items.json`);
                 const file_locations = zip.file(`${basename}/data/locations.json`);
                 const file_regions = zip.file(`${basename}/data/regions.json`);
+                const file_categories = zip.file(`${basename}/data/categories.json`);
 
                 if (!file_game && !file_items && !file_locations && !file_regions) {
                     self.status = error_text.replace(
@@ -109,7 +111,17 @@ export class Importer {
                         .catch((err) => {
                             console.log('Regions file not provided. Skipping');
                         });
-                }                
+                }          
+
+                if (file_categories) {
+                    file_categories.async('string')
+                        .then((content) => {
+                            self.categories = JSON.parse(content);
+                        })
+                        .catch((err) => {
+                            console.log('Categories file not provided. Skipping');
+                        });
+                }
             }, function (e) {
                 self.status = `${file.name} failed because: ${e.message}`;
             });
@@ -130,6 +142,7 @@ export class Importer {
         this.fillItems();
         this.fillLocations();
         this.fillRegions();
+        this.fillCategories();
 
         this.status = `<strong>Loaded!</strong>`;
     }
@@ -247,5 +260,9 @@ export class Importer {
         if (this.vue.regions.length == 0) {
             this.vue.regions.push({'id': 1});
         }
+    }
+
+    fillCategories() {
+        this.vue.categories = this.categories; // we can do better in the future
     }
 }

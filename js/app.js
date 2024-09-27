@@ -25,6 +25,7 @@ const app = createApp({
             items: [{'id': 1, 'classification': 'filler', 'count': 1}], // items.json
             locations: [{'id': 1, 'placement_type': 'none'}], // locations.json
             regions: [{'id': 1}], // regions.json
+            categories: {}, // categories.json
 
             getItemNames: computed(() => {
                 if (!this.loaded) return [];
