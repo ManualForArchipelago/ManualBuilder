@@ -102,10 +102,3 @@ export function encodeJsonWithSpacing(js_object) {
 
     return json_content;
 }
-
-export function fixRegionsSpacing(json_content) {
-    return json_content
-            .replace(/\{\"/g, '{\n\t\"')
-            .replace(/\}\,\"/g, '},\n\t"')
-            .replace(/\}\}/g, '\n}\n}').trim();
-}
