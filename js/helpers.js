@@ -97,27 +97,8 @@ export async function copyJsonCollection(collection) {
 
 export function encodeJsonWithSpacing(js_object) {
     let json_content = JSON.stringify(js_object, null, 2)
-                        .replace(/\:\s?(?!\d)/g, ': ')
                         .replace(/http\:\s/g, 'http:').replace(/https\:\s/g, 'https:')
                         .replace(/\:\s*ALL/, ":ALL").replace(/\:\s*HALF/, ":HALF");
-    
-    let manual_keywords = [
-        /* multiple */
-        'name', 'category', 'requires',
-        
-        /* items */
-        'progression', 'progression_skip_balancing', 'useful', 'filler', 'trap', 'count',
-    
-        /* locations */
-        'region', 'place_item', 'place_item_category', 'victory',
-
-        /* regions */
-        'connects_to', 'starting'
-    ];
-
-    for (let keyword of manual_keywords) {
-        json_content = json_content.replaceAll(`"${keyword}"`, `\n\t\t"${keyword}"`);
-    }
 
     return json_content;
 }
