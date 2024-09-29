@@ -1,4 +1,6 @@
 import { createApp, computed, reactive, nextTick } from 'vue';
+import { Examples } from '../text/examples.js'; 
+import { Tooltips } from '../text/tooltips.js'; 
 import { Importer } from './importer.js';
 import { Exporter } from './exporter.js';
 import { Template } from './template.js';
@@ -11,9 +13,12 @@ const app = createApp({
             loaded: false,
             imported: null,
 
+            Examples,
+            Tooltips,
+
             initTooltips: () => {
                 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+                [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
             },
 
             // game.json

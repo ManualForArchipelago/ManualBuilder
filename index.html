@@ -35,23 +35,23 @@
                         <div class="input-group">
                             <label for="game" class="form-label">
                                 Game: 
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="The name of the game that you're making a Manual apworld for."></i>
+                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" :data-bs-title="Tooltips['SIDEBAR_GAME']"></i>
                             </label>
-                            <input type="text" v-model.lazy="game" />
+                            <input type="text" v-model.lazy="game" :placeholder="Examples['SIDEBAR_GAME']" />
                         </div>
                         <div class="input-group">
                             <label for="creator" class="form-label">
                                 Creator:
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="People can have variations on a Manual randomizer approach, so we identify yours by your (probably Discord) name."></i>
+                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" :data-bs-title="Tooltips['SIDEBAR_CREATOR']"></i>
                             </label>
-                            <input type="text" placeholder="your name, probably" v-model.lazy="creator" />
+                            <input type="text" v-model.lazy="creator" :placeholder="Examples['SIDEBAR_CREATOR']" />
                         </div>
                         <div class="input-group">
                             <label for="filler" class="form-label">
                                 Filler Name:
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="When generation runs out of items from your list to place somewhere, it needs to place 'filler' items. Choose what those are called by default. (You can still define more filler items to the right if you want multiple names beyond this.)"></i>
+                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_FILLER_NAME']" data-bs-toggle="tooltip"></i>
                             </label>
-                            <input type="text" v-model.lazy="filler" />
+                            <input type="text" v-model.lazy="filler" :placeholder="Examples['SIDEBAR_FILLER_NAME']" />
                         </div>
                         <br /><br />
 
@@ -64,7 +64,7 @@
                         <template v-if="game == '' && creator == '' && filler">
                             <div class="input-group">
                                 <input type="file" name="file" v-on:change="getImporter($event)" />
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="If you have a functional Manual apworld file that you created before, you can choose that here. Then click the Import button below to pull the items/locations/etc. from that apworld into this tool."></i>
+                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_CHOOSE_FILE']" data-bs-toggle="tooltip"></i>
                             </div>
                             <div class="input-group">
                                 <button class="btn btn-warning" v-on:click="imported && imported.fillAll()">Import from apworld</button>
@@ -111,24 +111,24 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="The name that the item will have in the multiworld, such as in hints or when viewed in the Manual client."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_NAME']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input class="name" type="text" v-model.lazy="item.name" />
+                                            <input class="name" type="text" v-model.lazy="item.name" :placeholder="Examples['ITEMS_NAME']" />
                                         </div>
                                     
                                         <div class="col">
                                             <label class="form-label">
                                                 Categories:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Categories are used by the Manual client to group together items and locations. They also allow placing a random item from a category in a location, if you choose."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CATEGORIES']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input type="text" v-model.lazy="item.categories" placeholder="Category 1, Category 2, etc." />
+                                            <input type="text" v-model.lazy="item.categories" :placeholder="Examples['ITEMS_CATEGORIES']" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col">
                                             <label class="form-label">
                                                 Classification: 
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="The classification of an item determines how AP values placing the item. Progression means that it unlocks locations to check, useful means that it should not be excluded, and filler/trap are both non-essential."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CLASSIFICATION']" data-bs-toggle="tooltip"></i>
                                             </label>
                                             <select v-model.lazy="item.classification">
                                                 <option value="progression">Progression</option>
@@ -141,9 +141,9 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Count:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="How many of this item name do you want in the multiworld?"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_COUNT']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input class="count" type="text" v-model.lazy="item.count" />
+                                            <input class="count" type="text" v-model.lazy="item.count" :placeholder="Examples['ITEMS_COUNT']" />
                                         </div>
                                     </div>
                                     <hr />
@@ -168,17 +168,17 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="This is the name of the location, as it would show up in the multiworld when hinting for items. Also what is displayed in the Manual client."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_NAME']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input class="name" type="text" v-model.lazy="location.name" />
+                                            <input class="name" type="text" v-model.lazy="location.name" :placeholder="Examples['LOCATIONS_NAME']" />
                                         </div>
                                     
                                         <div class="col">
                                             <label class="form-label">
                                                 Categories:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Categories are used by the Manual client to group together items and locations."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_CATEGORIES']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input type="text" v-model.lazy="location.categories" placeholder="Category 1, Category 2, etc." />
+                                            <input type="text" v-model.lazy="location.categories" :placeholder="Examples['LOCATIONS_CATEGORIES']" />
                                         </div>
                                     </div>
                                  
@@ -186,7 +186,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Region:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="A region is a collection of locations that are in a similar 'area'. Regions can have their own requirements to be accessible, and they can also limit how they connect to other regions. If you're not sure what to put here, skip it."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REGION']" data-bs-toggle="tooltip"></i>
                                             </label>
                                             <select class="region" v-model.lazy="location.region">
                                                 <template v-for="region_name in getRegionNames">
@@ -197,9 +197,9 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Requirements:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Location requirements are your randomizer's logic, essentially. The requirements listed here must be met for the location to be accessible (in logic). You may only use item names (and, optionally, a count of that item with ':2', for example) for these requirements."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REQUIREMENTS']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <textarea v-model.lazy="location.requirements" placeholder="e.g., |Master Sword| AND (|Lamp| OR |Fire Rod|) AND (|Crystal:7|)"></textarea>
+                                            <textarea v-model.lazy="location.requirements" :placeholder="Examples['LOCATIONS_REQUIREMENTS']"></textarea>
                                         </div>
                                     </div>
 
@@ -207,19 +207,19 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Place Item:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="You can use this option to place a random item from a list, or a random item from a specific category, at a location. You can also specify only 1 item if you like. This will only ever choose one item to place."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_PLACE_ITEM']" data-bs-toggle="tooltip"></i>
                                             </label>
                                             <select v-model.lazy="location.placement_type">
                                                 <option value="none">Randomized</option>
                                                 <option value="single_item">By Name</option>
                                                 <option value="category_item">By Category Name</option>
                                             </select> &nbsp;
-                                            <input type="text" v-model.lazy="location.placement" class="name" placeholder="Match 1, Match 2, etc." />
+                                            <input type="text" v-model.lazy="location.placement" class="name" :placeholder="Examples['LOCATIONS_PLACE_ITEM']" />
                                         </div>
                                         <div class="col col-center">
                                             <input type="checkbox" v-model.lazy="location.victory" /> <label class="form-label">
                                                 Victory?
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="You can only have 1 victory location in your apworld. By marking a location as victory, its requirements will be used by AP to determine the requirements for being able to complete the game. Since this is the last location before completion, no items are placed here."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_VICTORY']" data-bs-toggle="tooltip"></i>
                                             </label>
                                         </div>
                                     </div>
@@ -245,17 +245,17 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="The name of the region that would contain locations. This is only shown in this Builder (as an option on your locations), and is not displayed in the multiworld."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_NAME']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input class="name" type="text" v-model.lazy="region.name" />
+                                            <input class="name" type="text" v-model.lazy="region.name" :placeholder="Examples['REGIONS_NAME']" />
                                         </div>
                                     
                                         <div class="col">
                                             <label class="form-label">
                                                 Connects To:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Regions are defined as forward-only exits/connections. In conjunction with the Starting Region option, this option determines how a later region can be reached. For example, if you're playing Minecraft and you're defining the Overworld region, you would say that the Nether region is a Connects To... but you would not say that the Overworld is a Connects To of the Nether region, because you're re-entering a region that you already accessed. If a region is not a Starting Region and no regions have it listed in their Connects To, that region is inaccessible and will likely break generation."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_CONNECTS_TO']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <input type="text" v-model.lazy="region.connects_to" placeholder="Region 1, Region 2, etc." />
+                                            <input type="text" v-model.lazy="region.connects_to" :placeholder="Examples['REGIONS_CONNECTS_TO']" />
                                         </div>
                                     </div>
 
@@ -263,16 +263,16 @@
                                         <div class="col">
                                             <input type="checkbox" v-model.lazy="region.starting" /> <label class="form-label">
                                                 Starting Region?
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Determines whether this region is reachable from the beginning of the game. If none of your regions use this option, all regions are accessible from the beginning. If any of your regions use this option, the regions that don't must be listed in a Connects To of another region to be accessible."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_STARTING_REGION']" data-bs-toggle="tooltip"></i>
                                             </label>
                                         </div>
 
                                         <div class="col">
                                             <label class="form-label">
                                                 Requirements:
-                                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-title="Region requirements are your randomizer's logic, essentially. The requirements listed here must be met for the region, and any locations in the region, to be accessible (in logic). You may only use item names (and, optionally, a count of that item with ':2', for example) for these requirements."></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_REQUIREMENTS']" data-bs-toggle="tooltip"></i>
                                             </label>
-                                            <textarea v-model.lazy="region.requirements" placeholder="e.g., |Master Sword| AND (|Lamp| OR |Fire Rod|) AND (|Crystal:7|)"></textarea>
+                                            <textarea v-model.lazy="region.requirements" :placeholder="Examples['REGIONS_REQUIREMENTS']"></textarea>
                                         </div>
                                     </div>
                                     <hr />
