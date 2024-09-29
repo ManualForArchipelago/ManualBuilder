@@ -125,16 +125,25 @@ export class Exporter {
                 location['requires'] = [];
             }
 
-            if (location['placement_type'] != 'none') {
-                switch (location['placement_type']) {
-                    case 'single_item':
-                        location['place_item'] = location['placement'].split(',').map((r) => r.trim());
-                        break;
+            switch (location['placement_type']) {
+                case 'none':
+                    if (Object.keys(location).includes('place_item')) {
+                        delete location['place_item'];
+                    }
 
-                    case 'category_item':
-                        location['place_item_category'] = location['placement'].split(',').map((r) => r.trim());
-                        break;
-                }
+                    if (Object.keys(location).includes('place_item_category')) {
+                        delete location['place_item_category'];
+                    }
+
+                    break;
+
+                case 'single_item':
+                    location['place_item'] = location['placement'].split(',').map((r) => r.trim());
+                    break;
+
+                case 'category_item':
+                    location['place_item_category'] = location['placement'].split(',').map((r) => r.trim());
+                    break;
             }
 
             for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type']) {
