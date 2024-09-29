@@ -144,3 +144,8 @@ div.validation_text {
 div.import-details strong {
     font-size: 18px;
 }
+
+/* lets an element not be rendered but still affect the layout of the page */
+.hide-with-layout {
+    visibility: hidden;
+}
