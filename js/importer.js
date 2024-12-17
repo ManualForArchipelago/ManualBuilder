@@ -1,3 +1,4 @@
+import { reactive } from 'vue';
 import { getRequirementsFromJSON } from './helpers.js';
 
 export class Importer {
@@ -22,8 +23,10 @@ export class Importer {
         const basename = file.name.replace(/\.apworld/, '');
         const error_text = '<span style="color: red">{text}</span>';
 
-        JSZip.loadAsync(file)                                   
+        JSZip.loadAsync(file, { createFolders: true })                                   
             .then(function(zip) {
+                
+                var selfref = reactive(self);
                 const file_game = zip.file(`${basename}/data/game.json`);
                 const file_items = zip.file(`${basename}/data/items.json`);
                 const file_locations = zip.file(`${basename}/data/locations.json`);
@@ -31,7 +34,7 @@ export class Importer {
                 const file_categories = zip.file(`${basename}/data/categories.json`);
 
                 if (!file_game && !file_items && !file_locations && !file_regions) {
-                    self.status = error_text.replace(
+                    selfref.status = error_text.replace(
                         '{text}',
                         'This zip file is not a functional Manual apworld. Please fix or upload the right file.'
                     );
@@ -42,17 +45,17 @@ export class Importer {
                 if (file_game) {
                     file_game.async('string')
                         .then((content) => {
-                            self.game = JSON.parse(content);
+                            selfref.game = JSON.parse(content);
                         })
                         .catch((err) => {
-                            self.status = error_text.replace(
+                            selfref.status = error_text.replace(
                                 '{text}',
                                 'Your game.json file is invalid.'
                             );
                         });
                 }
                 else {
-                    self.status = error_text.replace(
+                    selfref.status = error_text.replace(
                         '{text}',
                         'Your game.json file is invalid.'
                     );
@@ -63,17 +66,17 @@ export class Importer {
                 if (file_items) {
                     file_items.async('string')
                         .then((content) => {
-                            self.items = JSON.parse(content);
+                            selfref.items = JSON.parse(content);
                         })
                         .catch((err) => {
-                            self.status = error_text.replace(
+                            selfref.status = error_text.replace(
                                 '{text}',
                                 'Your items.json file is invalid.'
                             );
                         });
                 }
                 else {
-                    self.status = error_text.replace(
+                    selfref.status = error_text.replace(
                         '{text}',
                         'Your items.json file is invalid.'
                     );
@@ -84,17 +87,17 @@ export class Importer {
                 if (file_locations) {
                     file_locations.async('string')
                         .then((content) => {
-                            self.locations = JSON.parse(content);
+                            selfref.locations = JSON.parse(content);
                         })
                         .catch((err) => {
-                            self.status = error_text.replace(
+                            selfref.status = error_text.replace(
                                 '{text}',
                                 'Your locations.json file is invalid.'
                             );
                         });
                 }
                 else {
-                    self.status = error_text.replace(
+                    selfref.status = error_text.replace(
                         '{text}',
                         'Your locations.json file is invalid.'
                     );
@@ -106,7 +109,7 @@ export class Importer {
                 if (file_regions) {
                     file_regions.async('string')
                         .then((content) => {
-                            self.regions = JSON.parse(content);
+                            selfref.regions = JSON.parse(content);
                         })
                         .catch((err) => {
                             console.log('Regions file not provided. Skipping');
@@ -116,14 +119,15 @@ export class Importer {
                 if (file_categories) {
                     file_categories.async('string')
                         .then((content) => {
-                            self.categories = JSON.parse(content);
+                            selfref.categories = JSON.parse(content);
                         })
                         .catch((err) => {
                             console.log('Categories file not provided. Skipping');
                         });
                 }
             }, function (e) {
-                self.status = `${file.name} failed because: ${e.message}`;
+                var selfref = reactive(self);
+                selfref.status = `${file.name} failed because: ${e.message}`;
             });
         
         self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename}</span>`;
