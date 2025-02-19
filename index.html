@@ -35,21 +35,21 @@
                         <div class="input-group">
                             <label for="game" class="form-label">
                                 Game: 
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" :data-bs-title="Tooltips['SIDEBAR_GAME']"></i>
+                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-html="true" :data-bs-title="Tooltips['SIDEBAR_GAME']"></i>
                             </label>
                             <input type="text" v-model.lazy="game" :placeholder="Examples['SIDEBAR_GAME']" />
                         </div>
                         <div class="input-group">
                             <label for="creator" class="form-label">
                                 Creator:
-                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" :data-bs-title="Tooltips['SIDEBAR_CREATOR']"></i>
+                                <i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-html="true" :data-bs-title="Tooltips['SIDEBAR_CREATOR']"></i>
                             </label>
                             <input type="text" v-model.lazy="creator" :placeholder="Examples['SIDEBAR_CREATOR']" />
                         </div>
                         <div class="input-group">
                             <label for="filler" class="form-label">
                                 Filler Name:
-                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_FILLER_NAME']" data-bs-toggle="tooltip"></i>
+                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_FILLER_NAME']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                             </label>
                             <input type="text" v-model.lazy="filler" :placeholder="Examples['SIDEBAR_FILLER_NAME']" />
                         </div>
@@ -64,7 +64,7 @@
                         <template v-if="game == '' && creator == '' && filler">
                             <div class="input-group">
                                 <input type="file" name="file" v-on:change="getImporter($event)" />
-                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_CHOOSE_FILE']" data-bs-toggle="tooltip"></i>
+                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_CHOOSE_FILE']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                             </div>
                             <div class="input-group">
                                 <button class="btn btn-warning" v-on:click="imported && imported.fillAll()">Import from apworld</button>
@@ -111,7 +111,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_NAME']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_NAME']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input class="name" type="text" v-model.lazy="item.name" :placeholder="Examples['ITEMS_NAME']" />
                                         </div>
@@ -119,7 +119,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Categories:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CATEGORIES']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CATEGORIES']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input type="text" v-model.lazy="item.categories" :placeholder="Examples['ITEMS_CATEGORIES']" />
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Classification: 
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CLASSIFICATION']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_CLASSIFICATION']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <select v-model.lazy="item.classification">
                                                 <option value="progression">Progression</option>
@@ -141,7 +141,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Count:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_COUNT']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['ITEMS_COUNT']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input class="count" type="text" v-model.lazy="item.count" :placeholder="Examples['ITEMS_COUNT']" />
                                         </div>
@@ -168,7 +168,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_NAME']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_NAME']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input class="name" type="text" v-model.lazy="location.name" :placeholder="Examples['LOCATIONS_NAME']" />
                                         </div>
@@ -176,7 +176,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Categories:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_CATEGORIES']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_CATEGORIES']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input type="text" v-model.lazy="location.categories" :placeholder="Examples['LOCATIONS_CATEGORIES']" />
                                         </div>
@@ -186,7 +186,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Region:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REGION']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REGION']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <select class="region" v-model.lazy="location.region">
                                                 <template v-for="region_name in getRegionNames">
@@ -197,7 +197,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Requirements:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REQUIREMENTS']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REQUIREMENTS']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <textarea v-model.lazy="location.requirements" :placeholder="Examples['LOCATIONS_REQUIREMENTS']"></textarea>
                                         </div>
@@ -207,7 +207,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Place Item:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_PLACE_ITEM']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_PLACE_ITEM']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <select v-model.lazy="location.placement_type">
                                                 <option value="none">Randomized</option>
@@ -219,7 +219,7 @@
                                         <div class="col col-center">
                                             <input type="checkbox" v-model.lazy="location.victory" /> <label class="form-label">
                                                 Victory?
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_VICTORY']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_VICTORY']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                         </div>
                                     </div>
@@ -245,7 +245,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Name:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_NAME']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_NAME']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input class="name" type="text" v-model.lazy="region.name" :placeholder="Examples['REGIONS_NAME']" />
                                         </div>
@@ -253,7 +253,7 @@
                                         <div class="col">
                                             <label class="form-label">
                                                 Connects To:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_CONNECTS_TO']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_CONNECTS_TO']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <input type="text" v-model.lazy="region.connects_to" :placeholder="Examples['REGIONS_CONNECTS_TO']" />
                                         </div>
@@ -263,14 +263,14 @@
                                         <div class="col">
                                             <input type="checkbox" v-model.lazy="region.starting" /> <label class="form-label">
                                                 Starting Region?
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_STARTING_REGION']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_STARTING_REGION']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                         </div>
 
                                         <div class="col">
                                             <label class="form-label">
                                                 Requirements:
-                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_REQUIREMENTS']" data-bs-toggle="tooltip"></i>
+                                                <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['REGIONS_REQUIREMENTS']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                             </label>
                                             <textarea v-model.lazy="region.requirements" :placeholder="Examples['REGIONS_REQUIREMENTS']"></textarea>
                                         </div>
