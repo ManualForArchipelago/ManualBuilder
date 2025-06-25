@@ -45,7 +45,7 @@ export class Importer {
                 if (file_game) {
                     file_game.async('string')
                         .then((content) => {
-                            selfref.game = JSON.parse(content);
+                            selfref.game = self.parseJSON(content);
                         })
                         .catch((err) => {
                             selfref.status = error_text.replace(
@@ -66,7 +66,7 @@ export class Importer {
                 if (file_items) {
                     file_items.async('string')
                         .then((content) => {
-                            selfref.items = JSON.parse(content);
+                            selfref.items = self.parseJSON(content);
                         })
                         .catch((err) => {
                             selfref.status = error_text.replace(
@@ -87,7 +87,7 @@ export class Importer {
                 if (file_locations) {
                     file_locations.async('string')
                         .then((content) => {
-                            selfref.locations = JSON.parse(content);
+                            selfref.locations = self.parseJSON(content);
                         })
                         .catch((err) => {
                             selfref.status = error_text.replace(
@@ -109,7 +109,7 @@ export class Importer {
                 if (file_regions) {
                     file_regions.async('string')
                         .then((content) => {
-                            selfref.regions = JSON.parse(content);
+                            selfref.regions = self.parseJSON(content);
                         })
                         .catch((err) => {
                             console.log('Regions file not provided. Skipping');
@@ -119,7 +119,7 @@ export class Importer {
                 if (file_categories) {
                     file_categories.async('string')
                         .then((content) => {
-                            selfref.categories = JSON.parse(content);
+                            selfref.categories = self.parseJSON(content);
                         })
                         .catch((err) => {
                             console.log('Categories file not provided. Skipping');
@@ -268,5 +268,17 @@ export class Importer {
 
     fillCategories() {
         this.vue.categories = this.categories; // we can do better in the future
+    }
+
+    parseJSON(json_text) {
+        let parsed = JSON.parse(json_text);
+
+        if (parsed.hasOwnProperty('data')) {
+            parsed = parsed['data'];
+        }
+
+        if (parsed.hasOwnProperty('$schema')) delete parsed['$schema'];
+
+        return parsed;
     }
 }
