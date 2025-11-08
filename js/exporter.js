@@ -46,8 +46,14 @@ export class Exporter {
         let playerFormatted = self.game.creator.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
         let folder_name = `manual_${gameFormatted}_${playerFormatted}`;
 
+        let manifest = {
+            'version': 7,
+            'compatible_version': 7,
+            'game': `Manual_${self.game.game}_${self.game.creator}`,
+        };
+
         let zip = new JSZip();
-        
+
         for (let filename in template.fileContents) {
             zip.folder(folder_name).file(filename, template.fileContents[filename]);
         }
@@ -57,6 +63,7 @@ export class Exporter {
         zip.folder(folder_name).file('data/locations.json', encodeJsonWithSpacing(this.locations));
         zip.folder(folder_name).file('data/regions.json', encodeJsonWithSpacing(this.regions));
         zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
+        zip.folder(folder_name).file('archipelago.json', encodeJsonWithSpacing(manifest));
 
 
         zip.generateAsync({
@@ -93,7 +100,7 @@ export class Exporter {
             else {
                 item['category'] = [];
             }
-                        
+
             for (let delete_key of ['id', 'categories', 'classification', 'validation_error', 'progression', 'progression_skip_balancing', 'useful', 'filler', 'trap']) {
                 delete item[delete_key];
             }
@@ -118,7 +125,7 @@ export class Exporter {
             else {
                 location['category'] = [];
             }
-            
+
             location['requires'] = location['requirements'] || [];
 
             if (location['requires'] == '') {
@@ -169,7 +176,7 @@ export class Exporter {
             else {
                 region['connects_to'] = [];
             }
-            
+
             region['requires'] = region['requirements'] || [];
 
             if (region['requires'] == '') {
