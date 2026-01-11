@@ -234,7 +234,7 @@ export class Importer {
             }
 
             location.id = id;
-            location.options = [];
+            location.region_options = [];
 
             this.vue.locations.push(location);
             id++;

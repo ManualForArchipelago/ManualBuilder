@@ -28,7 +28,7 @@ const app = createApp({
             starting_items: [],
 
             items: [{'id': 1, 'classification': 'filler', 'count': 1}], // items.json
-            locations: [{'id': 1, 'placement_type': 'none', 'options': []}], // locations.json
+            locations: [{'id': 1, 'placement_type': 'none', 'region_options': []}], // locations.json
             regions: [{'id': 1}], // regions.json
             categories: {}, // categories.json
 
@@ -107,7 +107,7 @@ const app = createApp({
                     // get the max id in the array, then increment by 1
                     'id': newId,
                     'placement_type': 'none',
-                    'options': []
+                    'region_options': []
                 }); 
 
                 this.updateTotalLocationsCount();

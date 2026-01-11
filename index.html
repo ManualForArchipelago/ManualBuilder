@@ -204,13 +204,13 @@
                                                 <label>
                                                     Region: <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['LOCATIONS_REGION']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                                                 </label>
-                                                <select v-model.lazy="location.region" @focus="if (location.options.length != regions.length) location.options = regions;">
-                                                    <template v-if="location.options.length == 0">
+                                                <select v-model.lazy="location.region" @focus="if (location.region_options.length != regions.length) location.region_options = regions;">
+                                                    <template v-if="location.region_options.length == 0">
                                                         <option :value="location.region">{{ location.region }}</option>
                                                         <option>Loading...</option>
                                                     </template>
                                                     <template v-else>
-                                                        <template v-for="(region, index) in location.options">
+                                                        <template v-for="(region, index) in location.region_options">
                                                             <option :value="region.name">{{ region.name }}</option> 
                                                         </template>
                                                     </template>
