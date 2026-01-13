@@ -206,6 +206,8 @@ export class Importer {
         if (this.vue.items.length == 0) {
             this.vue.items.push({'id': 1, 'classification': 'filler', 'count': 1});
         }
+
+        this.vue.updateTotalItemsByCount();
     }
 
     fillLocations() {
@@ -232,6 +234,7 @@ export class Importer {
             }
 
             location.id = id;
+            location.region_options = [];
 
             this.vue.locations.push(location);
             id++;
@@ -240,6 +243,8 @@ export class Importer {
         if (this.vue.locations.length == 0) {
             this.vue.locations.push({'id': 1});
         }
+
+        this.vue.updateTotalLocationsCount();
     }
 
     fillRegions() {
@@ -264,6 +269,8 @@ export class Importer {
         if (this.vue.regions.length == 0) {
             this.vue.regions.push({'id': 1});
         }
+
+        this.vue.updateTotalRegionsCount();
     }
 
     fillCategories() {

@@ -119,11 +119,7 @@ export class Exporter {
                 location['category'] = [];
             }
             
-            location['requires'] = location['requirements'] || [];
-
-            if (location['requires'] == '') {
-                location['requires'] = [];
-            }
+            location['requires'] = location['requirements'] || "";
 
             switch (location['placement_type']) {
                 case 'none':
@@ -170,11 +166,7 @@ export class Exporter {
                 region['connects_to'] = [];
             }
             
-            region['requires'] = region['requirements'] || [];
-
-            if (region['requires'] == '') {
-                region['requires'] = [];
-            }
+            region['requires'] = region['requirements'] || "";
 
             for (let delete_key of ['id', 'validation_error', 'requirements', 'name']) {
                 delete region[delete_key];
