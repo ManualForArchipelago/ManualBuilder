@@ -66,15 +66,10 @@
 
                         <template v-if="game == '' && creator == '' && filler">
                             <div class="input-group">
-                                <label for="file">Import existing APWorld:</label>
+                                <label for="file">Choose APWorld to import:</label>
                                 <input type="file" name="file" v-on:change="getImporter($event)" />
                                 <i class="bi bi-info-circle-fill" :data-bs-title="Tooltips['SIDEBAR_CHOOSE_FILE']" data-bs-toggle="tooltip" data-bs-html="true"></i>
                             </div>
-                            <div class="input-group">
-                                <button class="btn warning" v-on:click="imported && imported.fillAll()">Import from APWorld</button>
-                            </div>
-                        </template>
-                        <template v-else>
                             <template v-if="imported">
                                 <div class="input-group">
                                     <div class="import-details">
@@ -82,13 +77,15 @@
                                     </div>
                                 </div>
                             </template>
-                            <template v-else>
-                                <div class="input-group">
-                                    To import an existing APWorld, export your current work and refresh.
-                                </div>
-                            </template>
+                            <div class="input-group">
+                                <button class="btn warning" v-on:click="imported && imported.fillAll()">Import APWorld</button>
+                            </div>
                         </template>
-                        
+                        <template v-else>
+                            <div class="input-group">
+                                To import an existing APWorld, export your current work and refresh.
+                            </div>
+                        </template>
 
                         <br />
                         <hr />
