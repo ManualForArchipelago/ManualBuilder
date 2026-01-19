@@ -142,7 +142,7 @@ export class Exporter {
                     break;
             }
 
-            for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type']) {
+            for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type', 'region_options']) {
                 delete location[delete_key];
             }
 

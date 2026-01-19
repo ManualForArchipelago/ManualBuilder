@@ -130,7 +130,7 @@ export class Importer {
                 selfref.status = `${file.name} failed because: ${e.message}`;
             });
         
-        self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename}</span>`;
+        self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename.replace(/^manual_/, '')}</span>`;
 
         return self;
     }
