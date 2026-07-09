@@ -174,7 +174,13 @@ export class Importer {
             this.vue.creator = this.game.player;
         }
 
-        this.vue.filler = this.game.filler_item_name;
+        if (typeof this.game.filler_item_name === "string") {
+            this.vue.filler = this.game.filler_item_name;
+        }
+        else {
+            this.vue.filler = this.game.filler_item_name?.join(', ') || '';
+        }
+
         this.vue.starting_items = this.game.starting_items || [];
     }
 
