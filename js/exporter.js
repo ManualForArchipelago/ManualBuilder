@@ -48,6 +48,12 @@ export class Exporter {
         let playerFormatted = self.game.creator.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
         let folder_name = `manual_${gameFormatted}_${playerFormatted}`;
 
+        let manifest = {
+            'version': 7,
+            'compatible_version': 7,
+            'game': `Manual_${self.game.game}_${self.game.creator}`,
+        };
+
         let zip = new JSZip();
 
         for (let filename in template.fileContents) {
@@ -60,6 +66,7 @@ export class Exporter {
         zip.folder(folder_name).file('data/regions.json', encodeJsonWithSpacing(this.regions));
         zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
         zip.folder(folder_name).file('data/events.json', encodeJsonWithSpacing(this.events));
+        zip.folder(folder_name).file('archipelago.json', encodeJsonWithSpacing(manifest));
 
         zip.generateAsync({
             type:"blob",
