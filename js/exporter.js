@@ -8,6 +8,7 @@ export class Exporter {
     locations = [];
     regions = [];
     categories = {};
+    events = [];
     status = '';
 
     static fromApp(vue) {
@@ -40,6 +41,7 @@ export class Exporter {
         this.locations = Exporter.prepLocations(this.vue.locations);
         this.regions = Exporter.prepRegions(this.vue.regions);
         this.categories = this.vue.categories;
+        this.events = this.vue.events;
 
         let template = self.vue.apworld_template;
         let gameFormatted = self.game.game.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
@@ -63,8 +65,8 @@ export class Exporter {
         zip.folder(folder_name).file('data/locations.json', encodeJsonWithSpacing(this.locations));
         zip.folder(folder_name).file('data/regions.json', encodeJsonWithSpacing(this.regions));
         zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
+        zip.folder(folder_name).file('data/events.json', encodeJsonWithSpacing(this.events));
         zip.folder(folder_name).file('archipelago.json', encodeJsonWithSpacing(manifest));
-
 
         zip.generateAsync({
             type:"blob",
@@ -110,7 +112,10 @@ export class Exporter {
             after_items.push(item);
         }
 
-        return after_items;
+        return {
+            "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.items.schema.json",
+            "data": after_items
+        };
     }
 
     static prepLocations(before_locations) {
@@ -126,11 +131,7 @@ export class Exporter {
                 location['category'] = [];
             }
 
-            location['requires'] = location['requirements'] || [];
-
-            if (location['requires'] == '') {
-                location['requires'] = [];
-            }
+            location['requires'] = location['requirements'] || "";
 
             switch (location['placement_type']) {
                 case 'none':
@@ -153,18 +154,23 @@ export class Exporter {
                     break;
             }
 
-            for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type']) {
+            for (let delete_key of ['id', 'categories', 'validation_error', 'requirements', 'placement', 'placement_type', 'region_options']) {
                 delete location[delete_key];
             }
 
             after_locations.push(location);
         }
 
-        return after_locations;
+        return {
+            "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.locations.schema.json",
+            "data": after_locations
+        };
     }
 
     static prepRegions(before_regions) {
-        let after_regions = {};
+        let after_regions = {
+            "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.regions.schema.json"
+        };
 
         for (let before_region of [...before_regions]) {
             let region = Object.assign({}, before_region);
@@ -177,11 +183,7 @@ export class Exporter {
                 region['connects_to'] = [];
             }
 
-            region['requires'] = region['requirements'] || [];
-
-            if (region['requires'] == '') {
-                region['requires'] = [];
-            }
+            region['requires'] = region['requirements'] || "";
 
             for (let delete_key of ['id', 'validation_error', 'requirements', 'name']) {
                 delete region[delete_key];

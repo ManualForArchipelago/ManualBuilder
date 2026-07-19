@@ -9,6 +9,7 @@ export class Importer {
     locations = [];
     regions = [];
     categories = {};
+    events = [];
     status = '';
 
     static fromZip(file, app) {
@@ -23,15 +24,16 @@ export class Importer {
         const basename = file.name.replace(/\.apworld/, '');
         const error_text = '<span style="color: red">{text}</span>';
 
-        JSZip.loadAsync(file, { createFolders: true })                                   
+        JSZip.loadAsync(file, { createFolders: true })
             .then(function(zip) {
-                
+
                 var selfref = reactive(self);
                 const file_game = zip.file(`${basename}/data/game.json`);
                 const file_items = zip.file(`${basename}/data/items.json`);
                 const file_locations = zip.file(`${basename}/data/locations.json`);
                 const file_regions = zip.file(`${basename}/data/regions.json`);
                 const file_categories = zip.file(`${basename}/data/categories.json`);
+                const file_events = zip.file(`${basename}/data/events.json`);
 
                 if (!file_game && !file_items && !file_locations && !file_regions) {
                     selfref.status = error_text.replace(
@@ -125,12 +127,22 @@ export class Importer {
                             console.log('Categories file not provided. Skipping');
                         });
                 }
+
+                if (file_events) {
+                    file_events.async('string')
+                        .then((content) => {
+                            selfref.events = self.parseJSON(content);
+                        })
+                        .catch((err) => {
+                            console.log('Events file not provided. Skipping');
+                        });
+                }
             }, function (e) {
                 var selfref = reactive(self);
                 selfref.status = `${file.name} failed because: ${e.message}`;
             });
         
-        self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename}</span>`;
+        self.status = `<strong>Ready for Import!</strong> <span class="text-success">${basename.replace(/^manual_/, '')}</span>`;
 
         return self;
     }
@@ -147,6 +159,7 @@ export class Importer {
         this.fillLocations();
         this.fillRegions();
         this.fillCategories();
+        this.fillEvents();
 
         this.status = `<strong>Loaded!</strong>`;
     }
@@ -160,7 +173,7 @@ export class Importer {
         else {
             this.vue.creator = this.game.player;
         }
-        
+
         this.vue.filler = this.game.filler_item_name;
         this.vue.starting_items = this.game.starting_items || [];
     }
@@ -191,7 +204,10 @@ export class Importer {
                 item.classification = 'useful';
             }
 
-            item.categories = item.category?.join(', ') || '';
+            if (typeof item.category === 'string')
+                item.categories = item.category
+            else
+                item.categories = item.category?.join(', ') || '';
 
             if (!item.count) {
                 item.count = 1;
@@ -206,6 +222,8 @@ export class Importer {
         if (this.vue.items.length == 0) {
             this.vue.items.push({'id': 1, 'classification': 'filler', 'count': 1});
         }
+
+        this.vue.updateTotalItemsByCount();
     }
 
     fillLocations() {
@@ -216,7 +234,10 @@ export class Importer {
         for (let location of this.locations) {
             location.requirements = getRequirementsFromJSON(location.requires);
 
-            location.categories = location.category?.join(', ') || '';
+            if (typeof location.category === 'string')
+                location.categories = location.category
+            else
+                location.categories = location.category?.join(', ') || '';
 
             if (location.place_item) {
                 location.placement_type = 'single_item';
@@ -232,6 +253,7 @@ export class Importer {
             }
 
             location.id = id;
+            location.region_options = [];
 
             this.vue.locations.push(location);
             id++;
@@ -240,6 +262,8 @@ export class Importer {
         if (this.vue.locations.length == 0) {
             this.vue.locations.push({'id': 1});
         }
+
+        this.vue.updateTotalLocationsCount();
     }
 
     fillRegions() {
@@ -264,10 +288,16 @@ export class Importer {
         if (this.vue.regions.length == 0) {
             this.vue.regions.push({'id': 1});
         }
+
+        this.vue.updateTotalRegionsCount();
     }
 
     fillCategories() {
         this.vue.categories = this.categories; // we can do better in the future
+    }
+
+    fillEvents() {
+        this.vue.events = this.events;
     }
 
     parseJSON(json_text) {

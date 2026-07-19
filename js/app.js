@@ -1,6 +1,6 @@
 import { createApp, computed, reactive, nextTick } from 'vue';
-import { Examples } from '../text/examples.js'; 
-import { Tooltips } from '../text/tooltips.js'; 
+import { Examples } from '../text/examples.js';
+import { Tooltips } from '../text/tooltips.js';
 import { Importer } from './importer.js';
 import { Exporter } from './exporter.js';
 import { Template } from './template.js';
@@ -28,9 +28,14 @@ const app = createApp({
             starting_items: [],
 
             items: [{'id': 1, 'classification': 'filler', 'count': 1}], // items.json
-            locations: [{'id': 1, 'placement_type': 'none'}], // locations.json
+            locations: [{'id': 1, 'placement_type': 'none', 'region_options': []}], // locations.json
             regions: [{'id': 1}], // regions.json
             categories: {}, // categories.json
+            events: [], // events.json
+
+            totalItemsByCount: 0,
+            totalLocations: 0,
+            totalRegions: 0,
 
             getItemNames: computed(() => {
                 if (!this.loaded) return [];
@@ -58,9 +63,15 @@ const app = createApp({
 
                 return this.regions.map((i) => i.name || '');
             }),
-            totalItemsByCount: computed(() => {
-                return this.items.map((i) => parseInt(i.count, 10) || 0).reduce((acc, item) => acc + item);
-            }),
+            updateTotalItemsByCount: () => {
+                this.totalItemsByCount = this.items.map((i) => parseInt(i.count, 10) || 0).reduce((acc, item) => acc + item);
+            },
+            updateTotalLocationsCount: () => {
+                this.totalLocations = this.locations.length;
+            },
+            updateTotalRegionsCount: () => {
+                this.totalRegions = this.regions.length;
+            },
 
             addItem: () => { 
                 let newId = 1;
@@ -79,6 +90,8 @@ const app = createApp({
                     'count': 1
                 }); 
 
+                this.updateTotalItemsByCount();
+
                 // this.scrollToBottom();
             },
             addLocation: () => { 
@@ -94,8 +107,11 @@ const app = createApp({
                 this.locations.push({
                     // get the max id in the array, then increment by 1
                     'id': newId,
-                    'placement_type': 'none'
+                    'placement_type': 'none',
+                    'region_options': []
                 }); 
+
+                this.updateTotalLocationsCount();
 
                 // this.scrollToBottom();
             },
@@ -114,12 +130,23 @@ const app = createApp({
                     'id': newId
                 }); 
 
+                this.updateTotalRegionsCount();
+
                 // this.scrollToBottom();
             },
 
-            removeItem: (index) => { this.items.splice(index, 1); },
-            removeLocation: (index) => { this.locations.splice(index, 1); },
-            removeRegion: (index) => { this.regions.splice(index, 1); },
+            removeItem: (index) => { 
+                this.items.splice(index, 1); 
+                this.updateTotalItemsByCount(); 
+            },
+            removeLocation: (index) => { 
+                this.locations.splice(index, 1); 
+                this.updateTotalLocationsCount();
+            },
+            removeRegion: (index) => { 
+                this.regions.splice(index, 1); 
+                this.updateTotalRegionsCount();
+            },
 
             isItemValid: (item) => {
                 if (item.count < 1) {
@@ -136,6 +163,12 @@ const app = createApp({
                 if (location.region && !this.getRegionNames.includes(location.region)) {
                     location.validation_error = `The region "${location.region}" is misspelled or does not exist.`;
 
+                    return false;
+                }
+
+                if (location.requirements && !location.requirements.includes("|") && !location.requirements.includes("{")) {
+                    location.validation_error = "Item names in requirements must be surrounded in |, as shown in the example placeholder.";
+                
                     return false;
                 }
 
@@ -162,6 +195,12 @@ const app = createApp({
             },
 
             isRegionValid: (region) => {
+                if (region.requirements && !region.requirements.includes("|") && !region.requirements.includes("{")) {
+                    region.validation_error = "Item names in requirements must be surrounded in |, as shown in the example placeholder.";
+                
+                    return false;
+                }
+
                 let required_items = getItemsListedInRequirements(region.requirements);
 
                 for (let required_item of required_items) {
@@ -224,6 +263,9 @@ const app = createApp({
         this.loaded = true;
 
         this.initTooltips();
+        this.updateTotalItemsByCount();
+        this.updateTotalLocationsCount();
+        this.updateTotalRegionsCount();
     },
 
     updated: function () {

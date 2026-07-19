@@ -1,3 +1,11 @@
+body {
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+
+    background-color: #222;
+}
+
+
 #container {
     padding: 30px;
 }
@@ -8,37 +16,138 @@
 }
 
 nav {
-    background-color: rgb(12, 72, 140);
+    /* background-color: rgb(12, 72, 140); */
+    position: relative;
+    border-bottom: 5px #282369 solid;
+    background-image: url("../images/pixel.png");
+    background-size: 800px 800px;
+    background-repeat: repeat;
 }
 
 nav a.navbar-brand {
-    font-size: 24px;
     margin-left: 20px;
+    padding: 2px 0 3px 0;
+    z-index: 1000;
 }
 
-nav a.navbar-brand span {
+nav a.navbar-brand img {
+    width: 48px;
+    height: 48px;
+    border: 2px #7a74db solid;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+nav a.navbar-brand span.sub-brand {
+    font-family: "DM Sans", sans-serif;
+    font-weight: bolder;
+    font-size: 26px;
+    line-height: 48px;
+    color: #7a74db;
+    vertical-align: middle;
+    margin-left: 12px;
+    letter-spacing: -2px;
+}
+
+nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 46, 130, 0.99); /* #332e82 */
+    z-index: 1; 
+}
+
+nav a.navbar-brand span.tagline {
+    font-family: "DM Sans", sans-serif;
     display: inline-block;
-    margin-left: 30px;
-    color: #b1b1c4;
-    font-size: 16px;
+    margin-left: 85px;
+    color: #bbb;
+    font-size: 18px;
+    margin-top: 7px;
+    vertical-align: middle;
+}
+
+ul.nav li.nav-item button {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bolder;
+    border: 3px #333 solid;
+    margin-right: 5px;
+    background-color: #333;
+}
+
+ul.nav li.nav-item button.active {
+    background-color: #555;
+    border-color: #555;
+    color: #eee;
+}
+
+ul.nav li.nav-item span.badge {
+    background-color: #332e82;
+    border: 3px #3e3a94 solid;
+    vertical-align: baseline;
+    font-size: 14px;
+}
+
+button.warning {
+    background-color: #dbd21a;
+    color: #222;
+}
+
+button.warning:hover, button.warning:focus {
+    background-color: #e8e36b;
+    color: #222;
+}
+
+button.success {
+    background-color: #128c33;
+    color: #222;
+}
+
+button.success:hover, button.success:focus {
+    background-color: #28b54e;
+    color: #222;
+}
+
+button.info {
+    background-color: #1790eb;
+    color: #222;
+}
+
+button.info:hover, button.info:focus {
+    background-color: #81c0f0;
+    color: #222;
 }
 
 div.form-card {
-    padding: 20px;
+    padding: 3px 6px;
+    background-color: #333;
+}
+
+div.form-card p.docs {
+    padding: 0 10px;
+    text-align: center;
 }
 
 div.input-group {
     padding: 5px;
 }
 
-label.form-label {
-    margin-right: 10px;
+div.input-group button {
+    margin: 0 auto;
 }
 
-div.card label.form-label {
+div.col label, div.card label {
     display: block;
-    width: 100%;
-    margin-right: 0;
+    font-weight: bolder;
+    margin-bottom: 4px;
+}
+
+div.col label.inline {
+    display: inline;
 }
 
 #forms-tabbed {
@@ -47,15 +156,35 @@ div.card label.form-label {
 }
 
 #forms-tabbed div.tab-content {
-    margin-top: 20px;
+    border: 3px #333 solid;
+    background-color: #333;
+    margin-top: 5px;
 }
 
 div.tab-content div.remove-this {
     float: right;
 }
 
+select {
+    height: 38px;
+}
+
+select, input[type=text], textarea {
+    background-color: #ddd;
+    color: #222;
+}
+
 input[type=text], textarea {
     width: 80%;
+    padding: 5px;
+}
+
+div.form-card input[type=text] {
+    width: 100%;
+}
+
+p.place-item input[type=text] {
+    width: 50%;
 }
 
 input[type=checkbox] {
@@ -78,7 +207,8 @@ input.name, select.region {
 }
 
 div.add-more {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    margin-left: 10px;
 }
 
 div.add-more button.btn-info {
@@ -127,7 +257,7 @@ div.victory, div.starting {
 /* Highlights for errors and what not */
 
 div.validation_error {
-    background-color: #100d12;
+    background-color: #1f0b09;
 }
 
 div.validation_text {
