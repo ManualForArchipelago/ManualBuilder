@@ -1,7 +1,7 @@
 export const Examples = {
     SIDEBAR_GAME: "",
     SIDEBAR_CREATOR: "your name, probably",
-    SIDEBAR_FILLER_NAME: "",
+    SIDEBAR_FILLER_NAME: "Filler 1, Filler 2, etc.",
 
     ITEMS_NAME: "",
     ITEMS_CATEGORIES: "Category 1, Category 2, etc.",
