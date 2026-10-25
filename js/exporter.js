@@ -29,11 +29,16 @@ export class Exporter {
             return;
         }
 
+        let filler_item_name = this.vue.filler?.split(',').map((r) => r.trim()) || [];
+
+        // if the filler item is an array of one element, just export it as a string
+        if (filler_item_name.length == 1) filler_item_name = filler_item_name[0];
+
         this.game = Exporter.prepGame({
             "$schema": "https://github.com/ManualForArchipelago/Manual/raw/main/schemas/Manual.game.schema.json",
             'game': this.vue.game.replace(/[^A-Za-z0-9]/g, ''),
             'creator': this.vue.creator.replace(/[^A-Za-z0-9]/g, ''),
-            'filler_item_name': this.vue.filler?.split(',').map((r) => r.trim()) || [],
+            'filler_item_name': filler_item_name,
             'starting_items': this.vue.starting_items,
         });
 
