@@ -10,6 +10,7 @@ export class Importer {
     regions = [];
     categories = {};
     events = [];
+    manifest = {};
     status = '';
 
     static fromZip(file, app) {
@@ -26,7 +27,6 @@ export class Importer {
 
         JSZip.loadAsync(file, { createFolders: true })
             .then(function(zip) {
-
                 var selfref = reactive(self);
                 const file_game = zip.file(`${basename}/data/game.json`);
                 const file_items = zip.file(`${basename}/data/items.json`);
@@ -34,6 +34,7 @@ export class Importer {
                 const file_regions = zip.file(`${basename}/data/regions.json`);
                 const file_categories = zip.file(`${basename}/data/categories.json`);
                 const file_events = zip.file(`${basename}/data/events.json`);
+                const file_manifest = zip.file(`${basename}/archipelago.json`);
 
                 if (!file_game && !file_items && !file_locations && !file_regions) {
                     selfref.status = error_text.replace(
@@ -135,6 +136,16 @@ export class Importer {
                         })
                         .catch((err) => {
                             console.log('Events file not provided. Skipping');
+                        });
+                }
+
+                if (file_manifest) {
+                    file_manifest.async('string')
+                        .then((content) => {
+                            selfref.manifest = self.parseJSON(content);
+                        })
+                        .catch((err) => {
+                            console.log('Manifest file not provided. Skipping');
                         });
                 }
             }, function (e) {

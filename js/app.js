@@ -262,6 +262,8 @@ const app = createApp({
     mounted: function () {
         this.loaded = true;
 
+        Exporter.requestManifestTemplate();
+
         this.initTooltips();
         this.updateTotalItemsByCount();
         this.updateTotalLocationsCount();

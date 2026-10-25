@@ -9,7 +9,10 @@ export class Exporter {
     regions = [];
     categories = {};
     events = [];
+    manifest = {};
     status = '';
+
+    static manifest_template = {};
 
     static fromApp(vue) {
         let self = new Exporter;
@@ -42,6 +45,7 @@ export class Exporter {
         this.regions = Exporter.prepRegions(this.vue.regions);
         this.categories = this.vue.categories;
         this.events = this.vue.events;
+        this.manifest = Exporter.prepManifest(this.manifest);
 
         let template = self.vue.apworld_template;
         let gameFormatted = self.game.game.toLowerCase().replace(/[^A-Za-z0-9]/g, '');
@@ -60,6 +64,7 @@ export class Exporter {
         zip.folder(folder_name).file('data/regions.json', encodeJsonWithSpacing(this.regions));
         zip.folder(folder_name).file('data/categories.json', encodeJsonWithSpacing(this.categories));
         zip.folder(folder_name).file('data/events.json', encodeJsonWithSpacing(this.events));
+        zip.folder(folder_name).file('archipelago.json', this.manifest);
 
         zip.generateAsync({
             type:"blob",
@@ -186,5 +191,40 @@ export class Exporter {
         }
 
         return after_regions;
+    }
+
+    static prepManifest(before_manifest) {
+        let after_manifest = Exporter.manifest_template;
+
+        for (let key in after_manifest) {
+            
+            // if the user's manifest customized a field, preserve that...
+            if (before_manifest.hasOwnProperty(key)) {
+                after_manifest[key] = before_manifest[key];
+            }
+        }
+
+        // ... but always write the correct game name
+        after_manifest["game"] = `Manual_${this.game.game}_${this.game.creator}`;
+
+        return after_manifest;
+    }
+
+    static requestManifestTemplate() {
+        fetch("https://raw.githubusercontent.com/ManualForArchipelago/Manual/refs/heads/main/templates/archipelago.json")
+            .then((response) => { // check for successful response and return json
+
+                // if the request fails, sub in the initial version of the template and hope it still works
+                if (!response.ok) return {};                
+                //if (!response.ok) return {"compatible_version": 7, "version": 7, "game": "Manual"};
+
+                return response.json();
+            })
+            .then((data) => { // store json, even empty default
+                Exporter.manifest_template = data;            
+            })
+            .catch((error) => { // catch error, note in console
+                console.error(`Error while fetching manifest template: ${error}`);
+            });
     }
 }
