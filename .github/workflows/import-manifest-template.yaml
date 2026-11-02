@@ -37,12 +37,12 @@ jobs:
           EXIT_CODE=$?
           echo "INVALID_JSON=${EXIT_CODE}" >> "$GITHUB_ENV"
       - name: Move new file to destination if valid and has changes
-        if: env.DIFFERENCES_FOUND == 1 && INVALID_JSON == 0
+        if: env.DIFFERENCES_FOUND == 1 && env.INVALID_JSON == 0
         run: |
           mv archipelago.json ${TEMPLATE_DESTINATION}
       - name: Create Pull Request
         id: cpr
-        if: env.DIFFERENCES_FOUND == 1 && INVALID_JSON == 0
+        if: env.DIFFERENCES_FOUND == 1 && env.INVALID_JSON == 0
         uses: peter-evans/create-pull-request@v8
         with:
             branch: template
