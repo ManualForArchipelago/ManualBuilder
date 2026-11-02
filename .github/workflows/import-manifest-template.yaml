@@ -1,0 +1,59 @@
+name: Import Manifest Template from Manual
+
+# scheduled weekly on Sunday morning EST
+on:
+  schedule:
+    - cron: "00 11 * * SUN"
+      timezone: "America/New_York"
+
+env:
+  TEMPLATE_REQUEST_URL: https://raw.githubusercontent.com/ManualForArchipelago/Manual/refs/heads/main/templates/archipelago.json
+  TEMPLATE_DESTINATION: templates/archipelago.json
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  copy_manifest_template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this Repo
+        uses: actions/checkout@v4
+        with:
+          path: .
+      - name: Download raw manifest template JSON from Manual repo
+        run: |
+          wget -O archipelago.json ${TEMPLATE_REQUEST_URL}
+      - name: Check if the template was changed
+        run: |
+          touch ${TEMPLATE_DESTINATION}
+          cmp --silent ${TEMPLATE_DESTINATION} archipelago.json
+          EXIT_CODE=$?
+          echo "DIFFERENCES_FOUND=${EXIT_CODE}" >> "$GITHUB_ENV"
+      - name: Check if the template is valid JSON
+        run: |
+          cat archipelago.json | jq empty > /dev/null 2>&1
+          EXIT_CODE=$?
+          echo "INVALID_JSON=${EXIT_CODE}" >> "$GITHUB_ENV"
+      - name: Move new file to destination if valid and has changes
+        if: env.DIFFERENCES_FOUND == 1 && INVALID_JSON == 0
+        run: |
+          mv archipelago.json ${TEMPLATE_DESTINATION}
+      - name: Create Pull Request
+        id: cpr
+        if: env.DIFFERENCES_FOUND == 1 && INVALID_JSON == 0
+        uses: peter-evans/create-pull-request@v8
+        with:
+            branch: template
+            title: Update manifest template
+            add-paths: 'templates'
+            author_name: 'GitHub Actions'
+            author_email: 'actionrunner@veryrealandnotmadeupdomain.com'
+            committer: 'GitHub Actions <actionrunner@veryrealandnotmadeupdomain.com>'
+            reviewers: '${{ github.actor }}' 
+      - name: Auto-Approve Pull Request
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        uses: hmarr/auto-approve-action@v4
+        with:
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
