@@ -53,9 +53,9 @@ jobs:
             base: main
             title: Update manifest template
             add-paths: 'templates'
-            author_name: 'GitHub Actions'
-            author_email: 'actionrunner@veryrealandnotmadeupdomain.com'
+            author: 'GitHub Actions <actionrunner@veryrealandnotmadeupdomain.com>'
             committer: 'GitHub Actions <actionrunner@veryrealandnotmadeupdomain.com>'
+            commit-message: 'Update AP manifest template from Manual'
             reviewers: '${{ github.actor }}' 
       - name: Auto-Approve Pull Request
         if: ${{ steps.cpr.outputs.pull-request-number }}
