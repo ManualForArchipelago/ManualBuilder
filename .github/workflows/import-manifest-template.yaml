@@ -28,14 +28,18 @@ jobs:
           wget -O archipelago.json ${{ env.TEMPLATE_REQUEST_URL }}
       - name: Check if the template was changed
         run: |
+          set +e
           touch ${{ env.TEMPLATE_DESTINATION }}
           echo "Comparing existing template (if any) to incoming template..."
           cmp --silent ${{ env.TEMPLATE_DESTINATION }} archipelago.json
           echo "DIFFERENCES_FOUND=$?" >> "$GITHUB_ENV"
+          exit 0
       - name: Check if the template is valid JSON
         run: |
+          set +e
           cat archipelago.json | jq empty > /dev/null 2>&1
           echo "INVALID_JSON=$?" >> "$GITHUB_ENV"
+          exit 0
       - name: Move new file to destination if valid and has changes
         if: env.DIFFERENCES_FOUND == 1 && env.INVALID_JSON == 0
         run: |
